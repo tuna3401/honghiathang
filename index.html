@@ -618,6 +618,7 @@
             <img 
               id="qrCodeImg"
               src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://zalo.me/0912345678" 
+              onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'150\' height=\'150\' viewBox=\'0 0 150 150\'><rect fill=\'%230068FF\' width=\'150\' height=\'150\' rx=\'12\'/><text fill=\'%23FFFFFF\' font-family=\'sans-serif\' font-size=\'14\' font-weight=\'bold\' x=\'50%25\' y=\'50%25\' text-anchor=\'middle\'>ZALO QR</text></svg>';"
               alt="Mã QR Zalo Tuấn Driver" 
               class="w-full h-full object-contain"
             />
@@ -1031,12 +1032,13 @@
       if (!routeData) return 350000;
       let basePrice = currentTripMode === 'bao_xe' ? routeData.priceBaoXe : routeData.priceDiGhep;
 
-      // Áp dụng phụ thu Ngày Lễ/Tết nếu đang bật
+      // Áp dụng phụ thu Ngày Lễ/Tết nếu đang bật (chống lỗi cộng chuỗi ký tự)
       if (APP_CONFIG.holidayMode && APP_CONFIG.holidayMode.isActive) {
+        const rawSurge = Number(APP_CONFIG.holidayMode.surgeValue) || 0;
         if (APP_CONFIG.holidayMode.surgeType === 'percent') {
-          basePrice = Math.round(basePrice * (1 + APP_CONFIG.holidayMode.surgeValue / 100));
+          basePrice = Math.round(basePrice * (1 + rawSurge / 100));
         } else {
-          basePrice = basePrice + APP_CONFIG.holidayMode.surgeValue;
+          basePrice = basePrice + rawSurge;
         }
       }
 
@@ -1101,6 +1103,14 @@
       }
     }
 
+    // Hàm escape ký tự đặc biệt chống lỗi parse HTML của Telegram API
+    function escapeTelegramHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
     // Handle Booking Form Submission
     async function handleBookingSubmit(e) {
       e.preventDefault();
@@ -1114,9 +1124,10 @@
       const priceText = currentCalculatedPrice.toLocaleString('vi-VN') + ' VNĐ';
       const styleText = selectedStyles.length > 0 ? selectedStyles.join(', ') : 'Tiêu chuẩn';
 
-      // Validation
-      if (!phone || phone.length < 10) {
-        alert('Vui lòng nhập đúng số điện thoại (10 số) để tài xế gọi đón quý khách!');
+      // Validation số điện thoại (chặn bỏ trống, chữ cái, sai độ dài 10 số)
+      const phoneDigitsRegex = /^[0-9]{10}$/;
+      if (!phone || !phoneDigitsRegex.test(phone)) {
+        alert('Vui lòng nhập đúng số điện thoại (gồm 10 chữ số) để tài xế gọi đón quý khách!');
         document.getElementById('customerPhone').focus();
         return;
       }
@@ -1131,18 +1142,18 @@
       `;
       lucide.createIcons();
 
-      // Compose Telegram Formatted Message (HTML)
+      // Compose Telegram Formatted Message (An toàn với HTML parser)
       const telegramHtmlMessage = 
 `🔔 <b>CÓ ĐƠN ĐẶT XE MỚI TỪ WEBSITE!</b>
 ━━━━━━━━━━━━━━━━━━
-🚖 <b>Lộ trình:</b> ${routeData.name}
-✨ <b>Hình thức:</b> ${modeText}
+🚖 <b>Lộ trình:</b> ${escapeTelegramHtml(routeData.name)}
+✨ <b>Hình thức:</b> ${escapeTelegramHtml(modeText)}
 💵 <b>Dự kiến:</b> <code>${priceText}</code>
-⏰ <b>Thời gian đón:</b> <b>${time}</b>
-📍 <b>Điểm đón:</b> ${pickup}
-👤 <b>Khách hàng:</b> ${name}
+⏰ <b>Thời gian đón:</b> <b>${escapeTelegramHtml(time)}</b>
+📍 <b>Điểm đón:</b> ${escapeTelegramHtml(pickup)}
+👤 <b>Khách hàng:</b> ${escapeTelegramHtml(name)}
 📞 <b>Số điện thoại:</b> <a href="tel:${phone}">${phone}</a>
-🏷 <b>Ghi chú/Tiện ích:</b> <i>${styleText}</i>
+🏷 <b>Ghi chú/Tiện ích:</b> <i>${escapeTelegramHtml(styleText)}</i>
 ━━━━━━━━━━━━━━━━━━
 👉 <i>Khách đang được chuyển tiếp mở Zalo để gửi tin nhắn. Bấm số điện thoại trên để gọi đón ngay!</i>`;
 
@@ -1210,9 +1221,6 @@
       modal.classList.remove('flex');
     }
   </script>
-
-  <!-- Automated Self-Test Runner (Kích hoạt bằng ?test=true hoặc window.runDriverTests()) -->
-  <script src="tests/self-test.js"></script>
 
 </body>
 </html>
