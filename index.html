@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Tuấn Driver | Đặt Xe Riêng & Tiện Chuyến Đẳng Cấp</title>
+  <meta name="description" content="Dịch vụ xe riêng đón trả tận nơi, xe SUV Mazda CX-5 sang trọng, êm ái, đúng giờ, báo giá minh bạch. Đặt xe bao trọn chuyến hoặc đi ghép siêu tiết kiệm.">
+
+  <!-- Google Fonts: Space Grotesk, Plus Jakarta Sans, Space Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN with Custom Configuration -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#04060A',
+            panel: '#0D111A',
+            panelLight: '#141A26',
+            recessed: '#070A10',
+            gold: '#E5C378',
+            goldHover: '#F3D698',
+            goldLight: 'rgba(229, 195, 120, 0.15)',
+            laser: '#00F59B',
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+            mono: ['"Space Mono"', 'monospace'],
+          },
+          boxShadow: {
+            'gold-glow': '0 0 30px -5px rgba(229, 195, 120, 0.22), inset 0 1px 0 0 rgba(255, 255, 255, 0.15)',
+            'gold-card': '0 10px 30px -10px rgba(0, 0, 0, 0.8), 0 0 20px -3px rgba(229, 195, 120, 0.15)',
+            'laser-glow': '0 0 15px rgba(0, 245, 155, 0.4)',
+            'recessed': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(255, 255, 255, 0.05)',
+            'tactile-btn': '0 4px 12px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+          },
+          keyframes: {
+            shimmer: {
+              '0%': { transform: 'translateX(-120%)' },
+              '100%': { transform: 'translateX(220%)' }
+            },
+            heartbeat: {
+              '0%, 100%': { transform: 'scale(1)', opacity: '1' },
+              '50%': { transform: 'scale(1.15)', opacity: '0.85' }
+            },
+            radar: {
+              '0%': { transform: 'scale(0.8)', opacity: '0.9' },
+              '70%': { transform: 'scale(2.4)', opacity: '0' },
+              '100%': { transform: 'scale(2.8)', opacity: '0' }
+            },
+            bellShake: {
+              '0%, 100%': { transform: 'rotate(0)' },
+              '20%, 60%': { transform: 'rotate(12deg)' },
+              '40%, 80%': { transform: 'rotate(-12deg)' }
+            }
+          },
+          animation: {
+            'shimmer-beam': 'shimmer 2.6s infinite ease-in-out',
+            'radar-pulse': 'radar 2s cubic-bezier(0, 0, 0.2, 1) infinite',
+            'heartbeat-slow': 'heartbeat 1.8s ease-in-out infinite',
+            'bell-ring': 'bellShake 2.5s infinite ease-in-out',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* OLED Depth & Scrollbar Optimization */
+    :root {
+      color-scheme: dark;
+    }
+    body {
+      background-color: #04060A;
+      color: #E2E8F0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Recessed switch transition */
+    .tactile-switch-btn {
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .tactile-switch-btn.active {
+      background: linear-gradient(135deg, #232B3B 0%, #161D2B 100%);
+      color: #E5C378;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(229, 195, 120, 0.4), 0 0 10px rgba(229, 195, 120, 0.2);
+      border: 1px solid rgba(229, 195, 120, 0.45);
+    }
+
+    /* Custom form elements */
+    select option {
+      background: #0D111A;
+      color: #F8FAFC;
+    }
+
+    /* Shimmer Beam Ribbon */
+    .shimmer-beam-container {
+      position: relative;
+      overflow: hidden;
+    }
+    .shimmer-beam-container::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        60deg,
+        transparent 35%,
+        rgba(255, 255, 255, 0.35) 50%,
+        transparent 65%
+      );
+      transform: translateX(-100%);
+      animation: shimmer 2.6s infinite ease-in-out;
+      pointer-events: none;
+    }
+
+    /* Floating Island Bar Blur */
+    .floating-island {
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(13, 17, 26, 0.88);
+      border: 1px solid rgba(229, 195, 120, 0.3);
+      box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.9), 0 0 25px -5px rgba(229, 195, 120, 0.2);
+    }
+
+    /* Style Choice Tags */
+    .style-pill.active {
+      border-color: #E5C378;
+      background: rgba(229, 195, 120, 0.12);
+      color: #F3D698;
+      box-shadow: 0 0 12px rgba(229, 195, 120, 0.25);
+    }
+  </style>
+</head>
+
+<body class="selection:bg-gold selection:text-black">
+
+  <!-- ========================================== -->
+  <!-- HERO & ABOVE-THE-FOLD COCKPIT (100dvh)     -->
+  <!-- ========================================== -->
+  <header class="relative min-h-[100dvh] w-full flex flex-col justify-between overflow-hidden">
+    
+    <!-- Background: Sharp angled Luxury SUV with deep night gradient overlay -->
+    <div class="absolute inset-0 z-0">
+      <img 
+        src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1600&q=85" 
+        alt="Mazda CX-5 Luxury Cockpit" 
+        class="w-full h-full object-cover object-center opacity-30 scale-105 filter brightness-75 contrast-125 transition-transform duration-1000"
+      />
+      <!-- Luxury Night Gradients -->
+      <div class="absolute inset-0 bg-gradient-to-b from-[#04060A]/80 via-[#04060A]/90 to-[#04060A]"></div>
+      <!-- Subtle Radial Light Accent -->
+      <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[500px] h-[350px] bg-gold/10 rounded-full blur-[120px] pointer-events-none"></div>
+    </div>
+
+    <!-- MAIN CONTAINER (Fixed within fold on mobile) -->
+    <div class="relative z-10 w-full max-w-md mx-auto px-4 pt-3 pb-2 flex-1 flex flex-col justify-between">
+      
+      <!-- TOP STATUS BAR & DRIVER BADGE (Compact) -->
+      <div>
+        <div class="flex items-center justify-between pb-2 border-b border-white/5">
+          <!-- Driver Info -->
+          <div class="flex items-center space-x-2.5">
+            <div class="relative flex-shrink-0">
+              <img 
+                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=150&q=80" 
+                alt="Tài xế Tuấn" 
+                class="w-10 h-10 rounded-full object-cover ring-2 ring-gold/70 shadow-[0_0_12px_rgba(229,195,120,0.4)]"
+              />
+              <!-- Laser Radar Heartbeat Pulse -->
+              <div class="absolute -bottom-0.5 -right-0.5 flex items-center justify-center">
+                <span class="absolute w-3.5 h-3.5 bg-laser rounded-full animate-radar-pulse opacity-75"></span>
+                <span class="relative block w-2.5 h-2.5 bg-laser rounded-full ring-2 ring-canvas shadow-laser-glow animate-heartbeat-slow"></span>
+              </div>
+            </div>
+            
+            <div class="leading-tight">
+              <div class="flex items-center space-x-1.5">
+                <h1 class="text-sm font-bold tracking-tight text-white font-display">Tuấn Driver</h1>
+                <span class="text-[10px] uppercase font-mono tracking-wider px-1.5 py-0.2 rounded bg-gold/15 text-gold border border-gold/30">VIP 2024</span>
+              </div>
+              <p class="text-[11px] text-zinc-400 font-medium flex items-center gap-1">
+                <span class="inline-block w-1.5 h-1.5 rounded-full bg-laser animate-pulse"></span>
+                Mazda CX-5 • Sẵn sàng đón
+              </p>
+            </div>
+          </div>
+
+          <!-- Quick Hotline Shake Button -->
+          <a href="tel:0912345678" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gold/10 hover:bg-gold/20 border border-gold/40 text-gold text-xs font-semibold shadow-sm transition active:scale-95 group">
+            <i data-lucide="phone-call" class="w-3.5 h-3.5 animate-bell-ring"></i>
+            <span class="font-mono text-[12px]">0912.345.678</span>
+          </a>
+        </div>
+
+        <!-- Empty Seat Flash Notice (Chiều về rỗng) -->
+        <div id="flashNotice" class="mt-2 py-1.5 px-3 rounded-lg bg-laser/10 border border-laser/30 flex items-center justify-between text-xs cursor-pointer hover:bg-laser/15 transition group">
+          <div class="flex items-center gap-2 overflow-hidden">
+            <span class="flex-shrink-0 flex items-center justify-center w-4 h-4 rounded-full bg-laser text-black font-extrabold text-[10px]">
+              <i data-lucide="zap" class="w-2.5 h-2.5"></i>
+            </span>
+            <span class="text-laser font-semibold truncate text-[11px] tracking-tight" id="noticeText">
+              17h chiều nay rỗng xe Nội Bài ➔ Cầu Giấy (Chỉ 180k)
+            </span>
+          </div>
+          <span class="text-[10px] text-laser/80 underline font-mono flex-shrink-0 ml-1 group-hover:text-laser">Nhận ngay</span>
+        </div>
+      </div>
+
+      <!-- CENTRAL COCKPIT FORM (Above the fold core card) -->
+      <div class="my-2 bg-panel/95 rounded-2xl p-3.5 border border-gold/30 shadow-gold-glow backdrop-blur-md relative flex flex-col justify-between">
+        
+        <!-- Recessed Tactile Switch: Bao xe vs Đi ghép -->
+        <div class="mb-3">
+          <div class="relative bg-recessed p-1 rounded-xl shadow-recessed flex items-center border border-white/5">
+            <button 
+              type="button" 
+              id="btnBaoXe" 
+              onclick="setTripMode('bao_xe')"
+              class="tactile-switch-btn active flex-1 py-2 px-3 rounded-lg text-xs font-bold text-center tracking-wide flex items-center justify-center gap-1.5">
+              <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+              Bao Trọn Xe
+            </button>
+            <button 
+              type="button" 
+              id="btnDiGhep" 
+              onclick="setTripMode('di_ghep')"
+              class="tactile-switch-btn flex-1 py-2 px-3 rounded-lg text-xs font-semibold text-center text-zinc-400 hover:text-zinc-200 tracking-wide flex items-center justify-center gap-1.5">
+              <i data-lucide="users" class="w-3.5 h-3.5"></i>
+              Đi Ghép Tiết Kiệm
+            </button>
+          </div>
+        </div>
+
+        <!-- FORM CONTROLS (Zero-scroll compact design) -->
+        <form id="bookingForm" onsubmit="handleBookingSubmit(event)" class="space-y-2.5">
+          
+          <!-- Route Selection -->
+          <div class="space-y-1">
+            <div class="flex items-center justify-between text-[11px] text-zinc-400 font-medium">
+              <span class="flex items-center gap-1 text-gold"><i data-lucide="map-pin" class="w-3 h-3"></i> Tuyến lộ trình</span>
+              <span id="routeBadge" class="text-[10px] font-mono text-zinc-400">Cao tốc 100%</span>
+            </div>
+            <div class="relative">
+              <select 
+                id="routeSelect" 
+                onchange="handleRouteChange()"
+                class="w-full h-11 pl-3 pr-8 rounded-xl bg-canvas/80 border border-gold/25 focus:border-gold focus:ring-1 focus:ring-gold text-white text-xs font-semibold appearance-none outline-none transition cursor-pointer">
+                <option value="hn-nb" selected>Hà Nội ➔ Sân Bay Nội Bài</option>
+                <option value="nb-hn">Sân Bay Nội Bài ➔ Hà Nội</option>
+                <option value="hn-hl">Hà Nội ➔ Hạ Long (Quảng Ninh)</option>
+                <option value="hn-hp">Hà Nội ➔ Hải Phòng (Cao tốc 5B)</option>
+                <option value="hn-nb-tinh">Hà Nội ➔ Ninh Bình (Tràng An / TP)</option>
+                <option value="noi-tinh">Nội thành / Tuyến theo km (11k/km)</option>
+              </select>
+              <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gold/70">
+                <i data-lucide="chevron-down" class="w-4 h-4"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pickup point & Time row -->
+          <div class="grid grid-cols-2 gap-2">
+            <div class="space-y-1">
+              <label class="block text-[11px] text-zinc-400 font-medium truncate">
+                Điểm đón cụ thể
+              </label>
+              <div class="relative">
+                <input 
+                  type="text" 
+                  id="pickupLocation" 
+                  required 
+                  placeholder="Vd: 28 Cầu Giấy..." 
+                  class="w-full h-10 px-2.5 rounded-xl bg-canvas/80 border border-white/10 focus:border-gold focus:ring-1 focus:ring-gold text-white text-xs placeholder:text-zinc-500 outline-none transition"
+                />
+              </div>
+            </div>
+
+            <div class="space-y-1">
+              <label class="block text-[11px] text-zinc-400 font-medium truncate">
+                Thời gian đón
+              </label>
+              <div class="relative">
+                <input 
+                  type="text" 
+                  id="pickupTime" 
+                  required 
+                  placeholder="Vd: 07:30 sáng mai..." 
+                  class="w-full h-10 px-2.5 rounded-xl bg-canvas/80 border border-white/10 focus:border-gold focus:ring-1 focus:ring-gold text-white text-xs placeholder:text-zinc-500 outline-none transition"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Customer Phone Number & Name -->
+          <div class="grid grid-cols-2 gap-2">
+            <div class="space-y-1">
+              <label class="block text-[11px] text-zinc-400 font-medium truncate">
+                Số điện thoại <span class="text-laser font-bold">*</span>
+              </label>
+              <input 
+                type="tel" 
+                id="customerPhone" 
+                required 
+                pattern="[0-9]{10}"
+                maxlength="10" 
+                placeholder="09xxx..." 
+                class="w-full h-10 px-2.5 rounded-xl bg-canvas/80 border border-white/10 focus:border-laser focus:ring-1 focus:ring-laser text-laser font-mono text-xs placeholder:text-zinc-500 outline-none transition"
+              />
+            </div>
+
+            <div class="space-y-1">
+              <label class="block text-[11px] text-zinc-400 font-medium truncate">
+                Tên khách hàng
+              </label>
+              <input 
+                type="text" 
+                id="customerName" 
+                placeholder="Anh / Chị..." 
+                class="w-full h-10 px-2.5 rounded-xl bg-canvas/80 border border-white/10 focus:border-gold focus:ring-1 focus:ring-gold text-white text-xs placeholder:text-zinc-500 outline-none transition"
+              />
+            </div>
+          </div>
+
+          <!-- Travel Experience Tags (Tactile Micro-select) -->
+          <div class="pt-1">
+            <div class="text-[10px] text-zinc-400 mb-1 flex items-center justify-between">
+              <span>Yêu cầu khoang lái (tùy chọn):</span>
+              <span class="text-gold text-[10px]">Tối đa tiện nghi</span>
+            </div>
+            <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+              <button type="button" onclick="toggleStyleTag(this)" class="style-pill active text-[10.5px] px-2.5 py-1 rounded-full border border-gold/40 text-zinc-300 font-medium whitespace-nowrap transition">
+                🌿 Yên tĩnh nghỉ ngơi
+              </button>
+              <button type="button" onclick="toggleStyleTag(this)" class="style-pill text-[10.5px] px-2.5 py-1 rounded-full border border-white/10 bg-canvas/60 text-zinc-400 font-medium whitespace-nowrap transition">
+                🧳 Nhiều hành lý
+              </button>
+              <button type="button" onclick="toggleStyleTag(this)" class="style-pill text-[10.5px] px-2.5 py-1 rounded-full border border-white/10 bg-canvas/60 text-zinc-400 font-medium whitespace-nowrap transition">
+                ❄️ Điều hòa mát sâu
+              </button>
+              <button type="button" onclick="toggleStyleTag(this)" class="style-pill text-[10.5px] px-2.5 py-1 rounded-full border border-white/10 bg-canvas/60 text-zinc-400 font-medium whitespace-nowrap transition">
+                ☕ Không hút thuốc
+              </button>
+            </div>
+          </div>
+
+          <!-- DYNAMIC PRICE COUNTER BOX -->
+          <div class="mt-2 p-2.5 rounded-xl bg-gradient-to-r from-canvas via-panelLight to-canvas border border-gold/30 flex items-center justify-between">
+            <div>
+              <div class="text-[10px] uppercase font-mono tracking-wider text-zinc-400 flex items-center gap-1">
+                <span>Cước phí trọn gói</span>
+                <span class="text-[9px] text-laser font-bold bg-laser/10 px-1 rounded">Không phát sinh</span>
+              </div>
+              <div class="flex items-baseline gap-1 mt-0.5">
+                <span class="text-xs text-gold font-mono font-bold">VNĐ</span>
+                <!-- Animated Smooth Rolling Counter -->
+                <span id="priceDisplay" class="text-2xl font-mono font-extrabold text-gold tracking-tight drop-shadow-[0_0_12px_rgba(229,195,120,0.3)]">
+                  350.000
+                </span>
+              </div>
+            </div>
+            <div class="text-right">
+              <span id="seatInfoBadge" class="inline-block text-[10.5px] font-medium text-zinc-300 bg-white/5 border border-white/10 px-2 py-1 rounded-md">
+                1 - 4 Khách / Riêng xe
+              </span>
+              <p class="text-[9px] text-zinc-400 mt-0.5">Đã gồm phí cầu đường</p>
+            </div>
+          </div>
+
+          <!-- SHIMMER BEAM CTA BUTTON (Primary Action) -->
+          <button 
+            type="submit" 
+            id="btnSubmitBooking"
+            class="shimmer-beam-container w-full h-12 rounded-xl bg-gradient-to-r from-[#E5C378] via-[#F5D899] to-[#D4AF57] text-[#070A10] font-display font-extrabold text-sm tracking-wide shadow-gold-glow flex items-center justify-center gap-2 active:scale-[0.98] transition cursor-pointer">
+            <i data-lucide="sparkles" class="w-4 h-4 text-[#070A10]"></i>
+            <span>GỬI YÊU CẦU ĐẶT XE NGAY</span>
+            <i data-lucide="arrow-right" class="w-4 h-4 text-[#070A10]"></i>
+          </button>
+        </form>
+
+      </div>
+
+      <!-- BOTTOM COMPACT ASSURANCES (3 Pillars) -->
+      <div class="grid grid-cols-3 gap-2 text-center pb-1">
+        <div class="py-1 px-1 rounded bg-white/[0.02] border border-white/5">
+          <p class="text-[10px] font-bold text-white flex items-center justify-center gap-1">
+            <i data-lucide="clock" class="w-3 h-3 text-gold"></i> Đón Đúng Giờ
+          </p>
+        </div>
+        <div class="py-1 px-1 rounded bg-white/[0.02] border border-white/5">
+          <p class="text-[10px] font-bold text-white flex items-center justify-center gap-1">
+            <i data-lucide="award" class="w-3 h-3 text-gold"></i> Xe Gia Đình Mới
+          </p>
+        </div>
+        <div class="py-1 px-1 rounded bg-white/[0.02] border border-white/5">
+          <p class="text-[10px] font-bold text-white flex items-center justify-center gap-1">
+            <i data-lucide="heart-handshake" class="w-3 h-3 text-gold"></i> Lái Chu Đáo
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Scroll Down Hint Indicator -->
+    <div class="relative z-10 text-center pb-2 flex flex-col items-center justify-center pointer-events-none opacity-60">
+      <span class="text-[9px] uppercase tracking-widest text-zinc-400 font-mono">Cuộn xem thêm ảnh xe & đánh giá</span>
+      <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gold animate-bounce"></i>
+    </div>
+  </header>
+
+  <!-- ========================================== -->
+  <!-- EXTENDED SECTION: LUXURY CABIN & VEHICLE   -->
+  <!-- ========================================== -->
+  <main class="relative z-10 w-full max-w-md mx-auto px-4 py-8 space-y-8 pb-32">
+    
+    <!-- SECTION 1: TRẢI NGHIỆM KHOANG LÁI CAO CẤP -->
+    <section class="space-y-3">
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="text-[10px] uppercase font-mono tracking-wider text-gold">Executive Comfort</span>
+          <h2 class="text-lg font-bold text-white font-display">Khoang Lái Hạng Thương Gia</h2>
+        </div>
+        <span class="text-xs font-mono text-zinc-400">CX-5 2024</span>
+      </div>
+
+      <!-- 3-Frame Visual Gallery -->
+      <div class="grid grid-cols-2 gap-2.5">
+        <!-- Frame 1: Full Exterior (Spans 2 columns) -->
+        <div class="col-span-2 relative h-48 rounded-2xl overflow-hidden border border-gold/30 shadow-gold-card group">
+          <img 
+            src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80" 
+            alt="Mazda CX-5 Đen Bóng" 
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-90"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-panel via-transparent to-transparent"></div>
+          <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+            <span class="text-xs font-bold text-white font-display drop-shadow">Ngoại thất SUV Đen Bóng Lịch Lãm</span>
+            <span class="text-[10px] bg-gold text-black font-extrabold px-2 py-0.5 rounded-full">Chính chủ lái</span>
+          </div>
+        </div>
+
+        <!-- Frame 2: Leather Cabin Interior -->
+        <div class="relative h-36 rounded-xl overflow-hidden border border-white/10 group">
+          <img 
+            src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=500&q=80" 
+            alt="Nội thất ghế da Nappa" 
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-90"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-panel via-black/30 to-transparent"></div>
+          <div class="absolute bottom-2 left-2 right-2">
+            <p class="text-[11px] font-bold text-white leading-tight">Ghế da êm ái</p>
+            <p class="text-[9px] text-zinc-400">Khử mùi ion tuyệt đối</p>
+          </div>
+        </div>
+
+        <!-- Frame 3: Amenities & Cleanliness -->
+        <div class="relative h-36 rounded-xl overflow-hidden border border-white/10 group">
+          <img 
+            src="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=500&q=80" 
+            alt="Tiện nghi nước khoáng sạc nhanh" 
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-90"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-panel via-black/30 to-transparent"></div>
+          <div class="absolute bottom-2 left-2 right-2">
+            <p class="text-[11px] font-bold text-white leading-tight">Nước suối & sạc nhanh</p>
+            <p class="text-[9px] text-zinc-400">Wifi & khăn ướt miễn phí</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: CAM KẾT VÀNG & TẠI SAO CHỌN TUẤN DRIVER -->
+    <section class="p-4 rounded-2xl bg-panel border border-gold/25 shadow-gold-card space-y-3.5">
+      <div class="flex items-center gap-2 pb-2 border-b border-white/10">
+        <div class="w-7 h-7 rounded-lg bg-gold/15 flex items-center justify-center text-gold">
+          <i data-lucide="shield-alert" class="w-4 h-4"></i>
+        </div>
+        <h3 class="text-sm font-bold text-white font-display uppercase tracking-wider">
+          3 Cam Kết Vàng Với Khách Hàng
+        </h3>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div class="flex items-start gap-2.5">
+          <div class="w-5 h-5 rounded-full bg-laser/15 text-laser flex items-center justify-center flex-shrink-0 mt-0.5">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-zinc-100">Trực tiếp lái xe - Không bán cuốc</h4>
+            <p class="text-zinc-400 text-[11px] mt-0.5">Đảm bảo chất lượng xe luôn sạch tinh tươm, tài xế văn minh, lịch sự, bảo mật thông tin hành trình.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-2.5">
+          <div class="w-5 h-5 rounded-full bg-laser/15 text-laser flex items-center justify-center flex-shrink-0 mt-0.5">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-zinc-100">Chuẩn xác giờ giấc - Luôn đến trước 10 phút</h4>
+            <p class="text-zinc-400 text-[11px] mt-0.5">Theo dõi lịch chuyến bay sân bay Nội Bài để đón đúng giờ, không để quý khách phải đứng chờ.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-2.5">
+          <div class="w-5 h-5 rounded-full bg-laser/15 text-laser flex items-center justify-center flex-shrink-0 mt-0.5">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-zinc-100">Báo giá trọn gói - Không phí ẩn</h4>
+            <p class="text-zinc-400 text-[11px] mt-0.5">Đã bao gồm toàn bộ vé cầu đường cao tốc, sân bay và bến bãi. Đúng giá cam kết khi đặt xe.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: ĐÁNH GIÁ THỰC TẾ CỦA KHÁCH -->
+    <section class="space-y-3">
+      <div class="flex items-center justify-between">
+        <h2 class="text-sm font-bold text-white font-display flex items-center gap-1.5">
+          <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+          Phản Hồi Từ Khách Hàng
+        </h2>
+        <span class="text-[11px] text-zinc-400 font-mono">4.9 / 5.0 (280+ chuyến)</span>
+      </div>
+
+      <div class="space-y-2.5">
+        <!-- Review 1 -->
+        <div class="p-3 rounded-xl bg-canvas border border-white/5 space-y-1.5">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-gold to-yellow-600 flex items-center justify-center text-[10px] font-bold text-black">
+                HL
+              </div>
+              <span class="text-xs font-bold text-zinc-200">Anh Hoàng Long</span>
+              <span class="text-[10px] text-zinc-500 font-mono">Doanh nhân Cầu Giấy</span>
+            </div>
+            <div class="flex text-gold text-[10px]">★★★★★</div>
+          </div>
+          <p class="text-[11px] text-zinc-400 italic">
+            "Xe rất thơm tho, anh Tuấn lái cực kỳ điềm đạm, không phanh gấp hay còi inh ỏi. Lên xe ngủ được một giấc ra thẳng sân bay rất khỏe người."
+          </p>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="p-3 rounded-xl bg-canvas border border-white/5 space-y-1.5">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-laser to-emerald-600 flex items-center justify-center text-[10px] font-bold text-black">
+                MA
+              </div>
+              <span class="text-xs font-bold text-zinc-200">Chị Mai Anh</span>
+              <span class="text-[10px] text-zinc-500 font-mono">Hà Nội ➔ Hạ Long</span>
+            </div>
+            <div class="flex text-gold text-[10px]">★★★★★</div>
+          </div>
+          <p class="text-[11px] text-zinc-400 italic">
+            "Gia đình mình có con nhỏ nhiều đồ đạc, xe rộng rãi cốp chứa thoải mái. Giá báo sao thanh toán đúng vậy không bị đòi thêm tiền bo."
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="pt-4 border-t border-white/5 text-center space-y-2">
+      <div class="flex items-center justify-center space-x-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-gold"></span>
+        <span class="text-xs font-bold text-gold uppercase tracking-wider font-display">Tuấn Driver Executive Travel</span>
+        <span class="w-1.5 h-1.5 rounded-full bg-gold"></span>
+      </div>
+      <p class="text-[10px] text-zinc-500">
+        Hotline / Zalo: 0912.345.678 • Hà Nội & Các Tuyến Liên Tỉnh
+      </p>
+      <div class="pt-1">
+        <a href="admin.html" class="text-[10px] text-zinc-600 hover:text-gold transition font-mono">Quản trị viên (Admin PIN)</a>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ========================================== -->
+  <!-- FLOATING ISLAND BAR (16px from bottom)     -->
+  <!-- ========================================== -->
+  <aside class="fixed bottom-4 left-4 right-4 max-w-md mx-auto z-50">
+    <div class="floating-island rounded-2xl px-3 py-2.5 flex items-center justify-between gap-2.5">
+      
+      <!-- Quick Call Button -->
+      <a 
+        href="tel:0912345678" 
+        class="flex-1 h-11 rounded-xl bg-canvas/90 hover:bg-canvas border border-gold/40 text-gold flex items-center justify-center gap-2 text-xs font-bold transition active:scale-95 group">
+        <div class="w-7 h-7 rounded-full bg-gold/15 flex items-center justify-center text-gold group-hover:scale-110 transition">
+          <i data-lucide="phone" class="w-3.5 h-3.5 animate-bell-ring"></i>
+        </div>
+        <span>Gọi Trực Tiếp</span>
+      </a>
+
+      <!-- Quick Zalo Button -->
+      <a 
+        id="quickZaloBtn"
+        href="https://zalo.me/0912345678" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="flex-1 h-11 rounded-xl bg-gradient-to-r from-blue-600 to-sky-600 hover:from-blue-500 hover:to-sky-500 border border-blue-400/40 text-white flex items-center justify-center gap-2 text-xs font-bold shadow-md transition active:scale-95 group">
+        <div class="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-white group-hover:scale-110 transition">
+          <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+        </div>
+        <span>Nhắn Qua Zalo</span>
+      </a>
+
+    </div>
+  </aside>
+
+  <!-- ========================================== -->
+  <!-- SUCCESS / CONFIRMATION MODAL POPUP         -->
+  <!-- ========================================== -->
+  <div id="bookingModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="w-full max-w-sm bg-panel border border-gold/40 rounded-2xl p-5 shadow-gold-glow space-y-4 animate-in fade-in zoom-in duration-200">
+      <div class="w-12 h-12 rounded-full bg-laser/20 border border-laser/40 text-laser flex items-center justify-center mx-auto shadow-laser-glow">
+        <i data-lucide="check-check" class="w-6 h-6"></i>
+      </div>
+
+      <div class="text-center space-y-1">
+        <h3 class="text-base font-bold text-white font-display">Đã Gửi Yêu Cầu Chuyến Đi!</h3>
+        <p class="text-xs text-zinc-400">
+          Hệ thống đang chuyển tiếp tin nhắn qua Zalo của Tài xế Tuấn để chốt xe ngay lập tức.
+        </p>
+      </div>
+
+      <div class="p-3 rounded-xl bg-canvas/80 border border-white/5 space-y-2 text-xs">
+        <div class="flex justify-between text-zinc-400">
+          <span>Lộ trình:</span>
+          <span id="modalRoute" class="text-white font-medium">Hà Nội ➔ Nội Bài</span>
+        </div>
+        <div class="flex justify-between text-zinc-400">
+          <span>Hình thức:</span>
+          <span id="modalMode" class="text-gold font-medium">Bao trọn xe</span>
+        </div>
+        <div class="flex justify-between text-zinc-400">
+          <span>Dự kiến cước:</span>
+          <span id="modalPrice" class="text-laser font-mono font-bold">350.000 VNĐ</span>
+        </div>
+        <div class="flex justify-between text-zinc-400">
+          <span>Số điện thoại:</span>
+          <span id="modalPhone" class="text-white font-mono">0912345678</span>
+        </div>
+      </div>
+
+      <div class="space-y-2 pt-1">
+        <a 
+          id="modalZaloDirectLink" 
+          href="#" 
+          target="_blank" 
+          class="w-full h-11 rounded-xl bg-gradient-to-r from-blue-600 to-sky-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md">
+          <i data-lucide="message-square" class="w-4 h-4"></i>
+          Mở Zalo Xác Nhận Lịch Ngay
+        </a>
+        <button 
+          type="button" 
+          onclick="closeBookingModal()" 
+          class="w-full h-10 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-400 text-xs font-semibold">
+          Đóng cửa sổ
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- JAVASCRIPT APPLICATION LOGIC               -->
+  <!-- ========================================== -->
+  <script>
+    const STORAGE_KEY = 'thanhai_app_settings';
+
+    // System Configurations & Data Model
+    let APP_CONFIG = {
+      driverName: 'Tuấn Driver',
+      driverPhone: '0912345678',
+      zaloPhone: '0912345678',
+      // Webhook Telegram: Thay bằng BOT TOKEN & CHAT ID thực tế nếu có
+      telegram: {
+        botToken: 'YOUR_BOT_TOKEN_HERE',
+        chatId: 'YOUR_CHAT_ID_HERE',
+        enabled: true
+      },
+      holidayMode: {
+        isActive: false,
+        surgeType: 'percent',
+        surgeValue: 20,
+        noticeText: 'Đã áp dụng phụ thu dịp Lễ/Tết'
+      },
+      bannerNotice: 'Chiều nay 17h rỗng xe Nội Bài ➔ Cầu Giấy (Chỉ 180k)',
+      bannerActive: true,
+      routes: {
+        'hn-nb': {
+          name: 'Hà Nội ➔ Sân Bay Nội Bài',
+          priceBaoXe: 350000,
+          priceDiGhep: 150000,
+          badge: 'Cao tốc 100%',
+          allowGhep: true,
+          isActive: true
+        },
+        'nb-hn': {
+          name: 'Sân Bay Nội Bài ➔ Hà Nội',
+          priceBaoXe: 300000,
+          priceDiGhep: 140000,
+          badge: 'Đón sảnh ga T1/T2',
+          allowGhep: true,
+          isActive: true
+        },
+        'hn-hl': {
+          name: 'Hà Nội ➔ Hạ Long (Quảng Ninh)',
+          priceBaoXe: 1200000,
+          priceDiGhep: 250000,
+          badge: 'Cao tốc Hà Nội - Hải Phòng',
+          allowGhep: true,
+          isActive: true
+        },
+        'hn-hp': {
+          name: 'Hà Nội ➔ Hải Phòng',
+          priceBaoXe: 950000,
+          priceDiGhep: 200000,
+          badge: 'Cao tốc 5B êm ái',
+          allowGhep: true,
+          isActive: true
+        },
+        'hn-nb-tinh': {
+          name: 'Hà Nội ➔ Ninh Bình (Tràng An / TP)',
+          priceBaoXe: 900000,
+          priceDiGhep: 220000,
+          badge: 'Cao tốc Cầu Giẽ - Ninh Bình',
+          allowGhep: true,
+          isActive: true
+        },
+        'noi-tinh': {
+          name: 'Nội thành / Tuyến theo km (11.000đ/km)',
+          priceBaoXe: 250000, // Giá mở cửa / tham chiếu
+          priceDiGhep: 0,
+          badge: 'Tính theo đồng hồ / km',
+          allowGhep: false,
+          isActive: true
+        }
+      }
+    };
+
+    // State Variables
+    let currentTripMode = 'bao_xe'; // 'bao_xe' | 'di_ghep'
+    let currentRouteKey = 'hn-nb';
+    let currentCalculatedPrice = 350000;
+    let selectedStyles = ['🌿 Yên tĩnh nghỉ ngơi'];
+
+    // Load from LocalStorage if synchronized from admin.html
+    function loadAdminSettings() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (!stored) return;
+      try {
+        const parsed = JSON.parse(stored);
+        if (parsed.driver_phone) {
+          APP_CONFIG.driverPhone = parsed.driver_phone;
+          APP_CONFIG.zaloPhone = parsed.driver_phone;
+          // Cập nhật các liên kết gọi và Zalo trên giao diện
+          const callLinks = document.querySelectorAll('a[href^="tel:"]');
+          callLinks.forEach(a => a.href = `tel:${parsed.driver_phone}`);
+          const quickZalo = document.getElementById('quickZaloBtn');
+          if (quickZalo) quickZalo.href = `https://zalo.me/${parsed.driver_phone}`;
+        }
+        if (parsed.banner_notice) {
+          APP_CONFIG.bannerNotice = parsed.banner_notice;
+          const noticeEl = document.getElementById('noticeText');
+          if (noticeEl) noticeEl.textContent = parsed.banner_notice;
+        }
+        if (parsed.banner_active === false) {
+          APP_CONFIG.bannerActive = false;
+          const banner = document.getElementById('flashNotice');
+          if (banner) banner.classList.add('hidden');
+        } else {
+          APP_CONFIG.bannerActive = true;
+          const banner = document.getElementById('flashNotice');
+          if (banner) banner.classList.remove('hidden');
+        }
+        if (parsed.holiday_mode) {
+          APP_CONFIG.holidayMode = {
+            isActive: !!parsed.holiday_mode.is_active,
+            surgeType: parsed.holiday_mode.surge_type || 'percent',
+            surgeValue: parseFloat(parsed.holiday_mode.surge_value) || 20,
+            noticeText: parsed.holiday_mode.notice_text || 'Đã áp dụng phụ thu dịp Lễ/Tết'
+          };
+        }
+        if (Array.isArray(parsed.routes)) {
+          parsed.routes.forEach(r => {
+            if (APP_CONFIG.routes[r.id]) {
+              APP_CONFIG.routes[r.id].priceBaoXe = r.price_bao_xe;
+              APP_CONFIG.routes[r.id].priceDiGhep = r.price_ghep;
+              APP_CONFIG.routes[r.id].isActive = r.is_active !== false;
+              if (r.allow_ghep !== undefined) APP_CONFIG.routes[r.id].allowGhep = r.allow_ghep;
+            }
+          });
+        }
+      } catch (err) {
+        console.error('Error loading stored settings:', err);
+      }
+    }
+
+    // Initialize Lucide Icons & App State on start
+    document.addEventListener('DOMContentLoaded', () => {
+      loadAdminSettings();
+      lucide.createIcons();
+      updatePriceDisplay(true);
+
+      // Flash Notice Click Event: Điền nhanh chiều về
+      const flashNotice = document.getElementById('flashNotice');
+      if (flashNotice) {
+        flashNotice.addEventListener('click', () => {
+          document.getElementById('routeSelect').value = 'nb-hn';
+          setTripMode('di_ghep');
+          document.getElementById('pickupLocation').value = 'Sân Bay Nội Bài (Sảnh đến)';
+          document.getElementById('pickupTime').value = '17:00 chiều nay';
+          handleRouteChange();
+          // Hiệu ứng nháy viền form
+          const formCard = document.querySelector('.bg-panel\\/95');
+          if (formCard) {
+            formCard.classList.add('ring-2', 'ring-laser');
+            setTimeout(() => formCard.classList.remove('ring-2', 'ring-laser'), 1500);
+          }
+        });
+      }
+    });
+
+    // Tactile Mode Switcher: Bao Xe vs Đi Ghép
+    function setTripMode(mode) {
+      const routeData = APP_CONFIG.routes[currentRouteKey];
+      if (mode === 'di_ghep' && !routeData.allowGhep) {
+        alert('Tuyến này hiện chỉ áp dụng hình thức Bao Xe trọn gói.');
+        return;
+      }
+
+      currentTripMode = mode;
+      const btnBao = document.getElementById('btnBaoXe');
+      const btnGhep = document.getElementById('btnDiGhep');
+      const seatInfoBadge = document.getElementById('seatInfoBadge');
+
+      if (mode === 'bao_xe') {
+        btnBao.classList.add('active');
+        btnBao.classList.remove('text-zinc-400');
+        btnGhep.classList.remove('active');
+        btnGhep.classList.add('text-zinc-400');
+        seatInfoBadge.textContent = '1 - 4 Khách / Riêng xe';
+      } else {
+        btnGhep.classList.add('active');
+        btnGhep.classList.remove('text-zinc-400');
+        btnBao.classList.remove('active');
+        btnBao.classList.add('text-zinc-400');
+        seatInfoBadge.textContent = '1 Ghế Tiện Chuyến';
+      }
+
+      updatePriceDisplay(false);
+    }
+
+    // Handle Route Dropdown Selection
+    function handleRouteChange() {
+      const select = document.getElementById('routeSelect');
+      currentRouteKey = select.value;
+      const routeData = APP_CONFIG.routes[currentRouteKey];
+
+      // Update Route Badge
+      const routeBadge = document.getElementById('routeBadge');
+      if (routeBadge && routeData.badge) {
+        routeBadge.textContent = routeData.badge;
+      }
+
+      // Check if Đi ghép is disallowed on this route
+      const btnGhep = document.getElementById('btnDiGhep');
+      if (!routeData.allowGhep) {
+        btnGhep.disabled = true;
+        btnGhep.classList.add('opacity-40', 'cursor-not-allowed');
+        if (currentTripMode === 'di_ghep') {
+          setTripMode('bao_xe');
+          return;
+        }
+      } else {
+        btnGhep.disabled = false;
+        btnGhep.classList.remove('opacity-40', 'cursor-not-allowed');
+      }
+
+      updatePriceDisplay(false);
+    }
+
+    // Calculate Target Price with Holiday Surge Support
+    function calculatePrice() {
+      const routeData = APP_CONFIG.routes[currentRouteKey];
+      if (!routeData) return 350000;
+      let basePrice = currentTripMode === 'bao_xe' ? routeData.priceBaoXe : routeData.priceDiGhep;
+
+      // Áp dụng phụ thu Ngày Lễ/Tết nếu đang bật
+      if (APP_CONFIG.holidayMode && APP_CONFIG.holidayMode.isActive) {
+        if (APP_CONFIG.holidayMode.surgeType === 'percent') {
+          basePrice = Math.round(basePrice * (1 + APP_CONFIG.holidayMode.surgeValue / 100));
+        } else {
+          basePrice = basePrice + APP_CONFIG.holidayMode.surgeValue;
+        }
+      }
+
+      return basePrice;
+    }
+
+    // Smooth Number Rolling Animation (Counter)
+    let animationFrameId = null;
+    function animatePriceCounter(startVal, endVal, duration = 400) {
+      const el = document.getElementById('priceDisplay');
+      if (!el) return;
+
+      if (startVal === endVal) {
+        el.textContent = endVal.toLocaleString('vi-VN');
+        return;
+      }
+
+      const startTime = performance.now();
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Easing cubic ease-out
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        const currentVal = Math.round(startVal + (endVal - startVal) * easeOut);
+
+        el.textContent = currentVal.toLocaleString('vi-VN');
+
+        if (progress < 1) {
+          animationFrameId = requestAnimationFrame(update);
+        } else {
+          el.textContent = endVal.toLocaleString('vi-VN');
+          animationFrameId = null;
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(update);
+    }
+        const progress = Math.min(elapsed / duration, 1);
+        // Easing cubic ease-out
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        const currentVal = Math.round(startVal + (endVal - startVal) * easeOut);
+
+        el.textContent = currentVal.toLocaleString('vi-VN');
+
+        if (progress < 1) {
+          animationFrameId = requestAnimationFrame(update);
+        } else {
+          el.textContent = endVal.toLocaleString('vi-VN');
+          animationFrameId = null;
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(update);
+    }
+
+    // Update Price Display
+    function updatePriceDisplay(immediate = false) {
+      const oldPrice = currentCalculatedPrice;
+      const newPrice = calculatePrice();
+      currentCalculatedPrice = newPrice;
+
+      if (immediate) {
+        const el = document.getElementById('priceDisplay');
+        if (el) el.textContent = newPrice.toLocaleString('vi-VN');
+      } else {
+        animatePriceCounter(oldPrice, newPrice, 450);
+      }
+    }
+
+    // Toggle Style Tag Selection
+    function toggleStyleTag(btn) {
+      btn.classList.toggle('active');
+      const text = btn.innerText.trim();
+      if (btn.classList.contains('active')) {
+        if (!selectedStyles.includes(text)) selectedStyles.push(text);
+      } else {
+        selectedStyles = selectedStyles.filter(item => item !== text);
+      }
+    }
+
+    // Handle Booking Form Submission
+    async function handleBookingSubmit(e) {
+      e.preventDefault();
+
+      const phone = document.getElementById('customerPhone').value.trim();
+      const name = document.getElementById('customerName').value.trim() || 'Quý khách';
+      const pickup = document.getElementById('pickupLocation').value.trim();
+      const time = document.getElementById('pickupTime').value.trim();
+      const routeData = APP_CONFIG.routes[currentRouteKey];
+      const modeText = currentTripMode === 'bao_xe' ? 'Bao Trọn Xe' : 'Đi Ghép Tiết Kiệm';
+      const priceText = currentCalculatedPrice.toLocaleString('vi-VN') + ' VNĐ';
+      const styleText = selectedStyles.length > 0 ? selectedStyles.join(', ') : 'Tiêu chuẩn';
+
+      // Validation
+      if (!phone || phone.length < 10) {
+        alert('Vui lòng nhập đúng số điện thoại (10 số) để tài xế gọi đón quý khách!');
+        document.getElementById('customerPhone').focus();
+        return;
+      }
+
+      // Button State: Loading Indicator
+      const submitBtn = document.getElementById('btnSubmitBooking');
+      const originalBtnHtml = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `
+        <i data-lucide="loader-2" class="w-4 h-4 animate-spin text-black"></i>
+        <span>ĐANG KẾT NỐI TÀI XẾ...</span>
+      `;
+      lucide.createIcons();
+
+      // Compose Telegram & Zalo Message
+      const messageContent = 
+`🚖 YÊU CẦU ĐẶT XE MỚI:
+• Tuyến: ${routeData.name}
+• Hình thức: ${modeText}
+• Giá dự kiến: ${priceText}
+• Thời gian đón: ${time}
+• Điểm đón: ${pickup}
+• Tên khách: ${name}
+• SĐT: ${phone}
+• Yêu cầu thêm: ${styleText}`;
+
+      // 1. Send Background Webhook to Telegram (Safe Try/Catch)
+      try {
+        if (APP_CONFIG.telegram.botToken !== 'YOUR_BOT_TOKEN_HERE') {
+          await fetch(`https://api.telegram.org/bot${APP_CONFIG.telegram.botToken}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: APP_CONFIG.telegram.chatId,
+              text: messageContent,
+              parse_mode: 'HTML'
+            })
+          });
+        }
+      } catch (err) {
+        console.warn('Telegram webhook notice:', err);
+      }
+
+      // 2. Prepare Zalo Deep Link
+      const zaloEncodedText = encodeURIComponent(
+`Chào Tuấn Driver, tôi muốn đặt xe:
+- Tuyến: ${routeData.name}
+- Hình thức: ${modeText}
+- Dự kiến: ${priceText}
+- Thời gian: ${time}
+- Điểm đón: ${pickup}
+- SĐT: ${phone}
+- Ghi chú: ${styleText}`
+      );
+      const zaloDeepLink = `https://zalo.me/${APP_CONFIG.zaloPhone}?text=${zaloEncodedText}`;
+
+      // 3. Update Modal Details & Show Modal
+      document.getElementById('modalRoute').textContent = routeData.name;
+      document.getElementById('modalMode').textContent = modeText;
+      document.getElementById('modalPrice').textContent = priceText;
+      document.getElementById('modalPhone').textContent = phone;
+      document.getElementById('modalZaloDirectLink').href = zaloDeepLink;
+
+      const modal = document.getElementById('bookingModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+
+      // Reset Submit Button
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalBtnHtml;
+      lucide.createIcons();
+
+      // Automatically open Zalo after 600ms
+      setTimeout(() => {
+        window.open(zaloDeepLink, '_blank');
+      }, 600);
+    }
+
+    // Close Confirmation Modal
+    function closeBookingModal() {
+      const modal = document.getElementById('bookingModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+  </script>
+
+</body>
+</html>
+
