@@ -276,31 +276,35 @@
           <!-- Pickup point & Time row -->
           <div class="grid grid-cols-2 gap-2">
             <div class="space-y-1">
-              <label class="block text-[11px] text-zinc-400 font-medium truncate">
-                Điểm đón cụ thể
+              <label class="block text-[11px] text-zinc-400 font-medium truncate flex items-center gap-1">
+                <i data-lucide="map-pin" class="w-3 h-3 text-gold"></i>
+                <span>Điểm đón cụ thể</span>
               </label>
-              <div class="relative">
+              <div class="relative flex items-center">
+                <i data-lucide="navigation" class="w-3.5 h-3.5 text-gold/60 absolute left-2.5 pointer-events-none"></i>
                 <input 
                   type="text" 
                   id="pickupLocation" 
                   required 
-                  placeholder="Vd: 28 Cầu Giấy..." 
-                  class="w-full h-10 px-2.5 rounded-xl bg-canvas/80 border border-white/10 focus:border-gold focus:ring-1 focus:ring-gold text-white text-xs placeholder:text-zinc-500 outline-none transition"
+                  placeholder="28 Cầu Giấy..." 
+                  class="w-full h-10 pl-8 pr-2.5 rounded-xl bg-canvas/80 border border-white/10 focus:border-gold focus:ring-1 focus:ring-gold text-white text-xs placeholder:text-zinc-500 outline-none transition"
                 />
               </div>
             </div>
 
             <div class="space-y-1">
-              <label class="block text-[11px] text-zinc-400 font-medium truncate">
-                Thời gian đón
+              <label class="block text-[11px] text-zinc-400 font-medium truncate flex items-center gap-1">
+                <i data-lucide="calendar" class="w-3 h-3 text-gold"></i>
+                <span>Thời gian đón</span>
               </label>
-              <div class="relative">
+              <div class="relative flex items-center">
+                <i data-lucide="clock" class="w-3.5 h-3.5 text-gold/60 absolute left-2.5 pointer-events-none"></i>
                 <input 
                   type="text" 
                   id="pickupTime" 
                   required 
-                  placeholder="Vd: 07:30 sáng mai..." 
-                  class="w-full h-10 px-2.5 rounded-xl bg-canvas/80 border border-white/10 focus:border-gold focus:ring-1 focus:ring-gold text-white text-xs placeholder:text-zinc-500 outline-none transition"
+                  placeholder="07:30 sáng mai..." 
+                  class="w-full h-10 pl-8 pr-2.5 rounded-xl bg-canvas/80 border border-white/10 focus:border-gold focus:ring-1 focus:ring-gold text-white text-xs placeholder:text-zinc-500 outline-none transition"
                 />
               </div>
             </div>
@@ -309,51 +313,68 @@
           <!-- Customer Phone Number & Name -->
           <div class="grid grid-cols-2 gap-2">
             <div class="space-y-1">
-              <label class="block text-[11px] text-zinc-400 font-medium truncate">
-                Số điện thoại <span class="text-laser font-bold">*</span>
+              <label class="block text-[11px] text-zinc-400 font-medium truncate flex items-center gap-1">
+                <i data-lucide="phone" class="w-3 h-3 text-laser"></i>
+                <span>Số điện thoại</span> <span class="text-laser font-bold">*</span>
               </label>
-              <input 
-                type="tel" 
-                id="customerPhone" 
-                required 
-                pattern="[0-9]{10}"
-                maxlength="10" 
-                placeholder="09xxx..." 
-                class="w-full h-10 px-2.5 rounded-xl bg-canvas/80 border border-white/10 focus:border-laser focus:ring-1 focus:ring-laser text-laser font-mono text-xs placeholder:text-zinc-500 outline-none transition"
-              />
+              <div class="relative flex items-center">
+                <i data-lucide="smartphone" class="w-3.5 h-3.5 text-laser/70 absolute left-2.5 pointer-events-none"></i>
+                <input 
+                  type="tel" 
+                  id="customerPhone" 
+                  required 
+                  pattern="[0-9]{10}"
+                  maxlength="10" 
+                  placeholder="09xxx..." 
+                  class="w-full h-10 pl-8 pr-2.5 rounded-xl bg-canvas/80 border border-white/10 focus:border-laser focus:ring-1 focus:ring-laser text-laser font-mono text-xs placeholder:text-zinc-500 outline-none transition"
+                />
+              </div>
             </div>
 
             <div class="space-y-1">
-              <label class="block text-[11px] text-zinc-400 font-medium truncate">
-                Tên khách hàng
+              <label class="block text-[11px] text-zinc-400 font-medium truncate flex items-center gap-1">
+                <i data-lucide="user" class="w-3 h-3 text-gold"></i>
+                <span>Tên khách hàng</span>
               </label>
-              <input 
-                type="text" 
-                id="customerName" 
-                placeholder="Anh / Chị..." 
-                class="w-full h-10 px-2.5 rounded-xl bg-canvas/80 border border-white/10 focus:border-gold focus:ring-1 focus:ring-gold text-white text-xs placeholder:text-zinc-500 outline-none transition"
-              />
+              <div class="relative flex items-center">
+                <i data-lucide="user-check" class="w-3.5 h-3.5 text-zinc-500 absolute left-2.5 pointer-events-none"></i>
+                <input 
+                  type="text" 
+                  id="customerName" 
+                  placeholder="Anh / Chị..." 
+                  class="w-full h-10 pl-8 pr-2.5 rounded-xl bg-canvas/80 border border-white/10 focus:border-gold focus:ring-1 focus:ring-gold text-white text-xs placeholder:text-zinc-500 outline-none transition"
+                />
+              </div>
             </div>
           </div>
 
           <!-- Travel Experience Tags (Tactile Micro-select) -->
           <div class="pt-1">
             <div class="text-[10px] text-zinc-400 mb-1 flex items-center justify-between">
-              <span>Yêu cầu khoang lái (tùy chọn):</span>
-              <span class="text-gold text-[10px]">Tối đa tiện nghi</span>
+              <span class="flex items-center gap-1">
+                <i data-lucide="sliders" class="w-3 h-3 text-gold"></i>
+                <span>Yêu cầu khoang lái (tùy chọn):</span>
+              </span>
+              <span class="text-gold text-[10px] flex items-center gap-0.5">
+                <i data-lucide="sparkles" class="w-2.5 h-2.5"></i> Tối đa tiện nghi
+              </span>
             </div>
             <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
-              <button type="button" onclick="toggleStyleTag(this)" class="style-pill active text-[10.5px] px-2.5 py-1 rounded-full border border-gold/40 text-zinc-300 font-medium whitespace-nowrap transition">
-                🌿 Yên tĩnh nghỉ ngơi
+              <button type="button" onclick="toggleStyleTag(this)" class="style-pill active text-[10.5px] px-2.5 py-1 rounded-full border border-gold/40 text-zinc-300 font-medium whitespace-nowrap transition flex items-center gap-1">
+                <i data-lucide="volume-x" class="w-3 h-3"></i>
+                <span>Yên tĩnh nghỉ ngơi</span>
               </button>
-              <button type="button" onclick="toggleStyleTag(this)" class="style-pill text-[10.5px] px-2.5 py-1 rounded-full border border-white/10 bg-canvas/60 text-zinc-400 font-medium whitespace-nowrap transition">
-                🧳 Nhiều hành lý
+              <button type="button" onclick="toggleStyleTag(this)" class="style-pill text-[10.5px] px-2.5 py-1 rounded-full border border-white/10 bg-canvas/60 text-zinc-400 font-medium whitespace-nowrap transition flex items-center gap-1">
+                <i data-lucide="luggage" class="w-3 h-3"></i>
+                <span>Nhiều hành lý</span>
               </button>
-              <button type="button" onclick="toggleStyleTag(this)" class="style-pill text-[10.5px] px-2.5 py-1 rounded-full border border-white/10 bg-canvas/60 text-zinc-400 font-medium whitespace-nowrap transition">
-                ❄️ Điều hòa mát sâu
+              <button type="button" onclick="toggleStyleTag(this)" class="style-pill text-[10.5px] px-2.5 py-1 rounded-full border border-white/10 bg-canvas/60 text-zinc-400 font-medium whitespace-nowrap transition flex items-center gap-1">
+                <i data-lucide="snowflake" class="w-3 h-3"></i>
+                <span>Điều hòa mát sâu</span>
               </button>
-              <button type="button" onclick="toggleStyleTag(this)" class="style-pill text-[10.5px] px-2.5 py-1 rounded-full border border-white/10 bg-canvas/60 text-zinc-400 font-medium whitespace-nowrap transition">
-                ☕ Không hút thuốc
+              <button type="button" onclick="toggleStyleTag(this)" class="style-pill text-[10.5px] px-2.5 py-1 rounded-full border border-white/10 bg-canvas/60 text-zinc-400 font-medium whitespace-nowrap transition flex items-center gap-1">
+                <i data-lucide="cigarette-off" class="w-3 h-3"></i>
+                <span>Không hút thuốc</span>
               </button>
             </div>
           </div>
@@ -362,8 +383,11 @@
           <div class="mt-2 p-2.5 rounded-xl bg-gradient-to-r from-canvas via-panelLight to-canvas border border-gold/30 flex items-center justify-between">
             <div>
               <div class="text-[10px] uppercase font-mono tracking-wider text-zinc-400 flex items-center gap-1">
+                <i data-lucide="tag" class="w-3 h-3 text-gold"></i>
                 <span>Cước phí trọn gói</span>
-                <span class="text-[9px] text-laser font-bold bg-laser/10 px-1 rounded">Không phát sinh</span>
+                <span class="text-[9px] text-laser font-bold bg-laser/10 px-1 rounded flex items-center gap-0.5">
+                  <i data-lucide="shield-check" class="w-2.5 h-2.5"></i> Không phát sinh
+                </span>
               </div>
               <div class="flex items-baseline gap-1 mt-0.5">
                 <span class="text-xs text-gold font-mono font-bold">VNĐ</span>
@@ -374,10 +398,13 @@
               </div>
             </div>
             <div class="text-right">
-              <span id="seatInfoBadge" class="inline-block text-[10.5px] font-medium text-zinc-300 bg-white/5 border border-white/10 px-2 py-1 rounded-md">
-                1 - 4 Khách / Riêng xe
+              <span id="seatInfoBadge" class="inline-flex items-center gap-1 text-[10.5px] font-medium text-zinc-300 bg-white/5 border border-white/10 px-2 py-1 rounded-md">
+                <i data-lucide="users" class="w-3 h-3 text-gold"></i>
+                <span id="seatInfoText">1 - 4 Khách / Riêng xe</span>
               </span>
-              <p class="text-[9px] text-zinc-400 mt-0.5">Đã gồm phí cầu đường</p>
+              <p class="text-[9px] text-zinc-400 mt-0.5 flex items-center justify-end gap-1">
+                <i data-lucide="check" class="w-2.5 h-2.5 text-laser"></i> Đã gồm phí cầu đường
+              </p>
             </div>
           </div>
 
@@ -499,31 +526,40 @@
 
       <div class="space-y-3 text-xs">
         <div class="flex items-start gap-2.5">
-          <div class="w-5 h-5 rounded-full bg-laser/15 text-laser flex items-center justify-center flex-shrink-0 mt-0.5">
-            <i data-lucide="check" class="w-3.5 h-3.5"></i>
+          <div class="w-6 h-6 rounded-full bg-laser/15 text-laser flex items-center justify-center flex-shrink-0 mt-0.5">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
           </div>
           <div>
-            <h4 class="font-bold text-zinc-100">Trực tiếp lái xe - Không bán cuốc</h4>
+            <h4 class="font-bold text-zinc-100 flex items-center gap-1.5">
+              <span>Trực tiếp lái xe - Không bán cuốc</span>
+              <span class="text-[9px] text-laser bg-laser/10 px-1 py-0.2 rounded font-mono">100% Chính chủ</span>
+            </h4>
             <p class="text-zinc-400 text-[11px] mt-0.5">Đảm bảo chất lượng xe luôn sạch tinh tươm, tài xế văn minh, lịch sự, bảo mật thông tin hành trình.</p>
           </div>
         </div>
 
         <div class="flex items-start gap-2.5">
-          <div class="w-5 h-5 rounded-full bg-laser/15 text-laser flex items-center justify-center flex-shrink-0 mt-0.5">
-            <i data-lucide="check" class="w-3.5 h-3.5"></i>
+          <div class="w-6 h-6 rounded-full bg-laser/15 text-laser flex items-center justify-center flex-shrink-0 mt-0.5">
+            <i data-lucide="alarm-clock-check" class="w-3.5 h-3.5"></i>
           </div>
           <div>
-            <h4 class="font-bold text-zinc-100">Chuẩn xác giờ giấc - Luôn đến trước 10 phút</h4>
+            <h4 class="font-bold text-zinc-100 flex items-center gap-1.5">
+              <span>Chuẩn xác giờ giấc - Luôn đến trước 10 phút</span>
+              <span class="text-[9px] text-gold bg-gold/10 px-1 py-0.2 rounded font-mono">Đúng hẹn</span>
+            </h4>
             <p class="text-zinc-400 text-[11px] mt-0.5">Theo dõi lịch chuyến bay sân bay Nội Bài để đón đúng giờ, không để quý khách phải đứng chờ.</p>
           </div>
         </div>
 
         <div class="flex items-start gap-2.5">
-          <div class="w-5 h-5 rounded-full bg-laser/15 text-laser flex items-center justify-center flex-shrink-0 mt-0.5">
-            <i data-lucide="check" class="w-3.5 h-3.5"></i>
+          <div class="w-6 h-6 rounded-full bg-laser/15 text-laser flex items-center justify-center flex-shrink-0 mt-0.5">
+            <i data-lucide="badge-dollar-sign" class="w-3.5 h-3.5"></i>
           </div>
           <div>
-            <h4 class="font-bold text-zinc-100">Báo giá trọn gói - Không phí ẩn</h4>
+            <h4 class="font-bold text-zinc-100 flex items-center gap-1.5">
+              <span>Báo giá trọn gói - Không phí ẩn</span>
+              <span class="text-[9px] text-laser bg-laser/10 px-1 py-0.2 rounded font-mono">Trọn gói</span>
+            </h4>
             <p class="text-zinc-400 text-[11px] mt-0.5">Đã bao gồm toàn bộ vé cầu đường cao tốc, sân bay và bến bãi. Đúng giá cam kết khi đặt xe.</p>
           </div>
         </div>
@@ -535,9 +571,12 @@
       <div class="flex items-center justify-between">
         <h2 class="text-sm font-bold text-white font-display flex items-center gap-1.5">
           <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
-          Phản Hồi Từ Khách Hàng
+          <span>Phản Hồi Từ Khách Hàng</span>
         </h2>
-        <span class="text-[11px] text-zinc-400 font-mono">4.9 / 5.0 (280+ chuyến)</span>
+        <span class="text-[11px] text-zinc-400 font-mono flex items-center gap-1">
+          <i data-lucide="award" class="w-3 h-3 text-gold"></i>
+          <span>4.9 / 5.0 (280+ chuyến)</span>
+        </span>
       </div>
 
       <div class="space-y-2.5">
@@ -548,8 +587,13 @@
               <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-gold to-yellow-600 flex items-center justify-center text-[10px] font-bold text-black">
                 HL
               </div>
-              <span class="text-xs font-bold text-zinc-200">Anh Hoàng Long</span>
-              <span class="text-[10px] text-zinc-500 font-mono">Doanh nhân Cầu Giấy</span>
+              <div class="flex items-center gap-1">
+                <span class="text-xs font-bold text-zinc-200">Anh Hoàng Long</span>
+                <i data-lucide="badge-check" class="w-3.5 h-3.5 text-laser" title="Khách hàng đã đi xe"></i>
+              </div>
+              <span class="text-[10px] text-zinc-500 font-mono flex items-center gap-0.5">
+                <i data-lucide="map-pin" class="w-2.5 h-2.5 text-zinc-500"></i> Cầu Giấy
+              </span>
             </div>
             <div class="flex text-gold text-[10px]">★★★★★</div>
           </div>
@@ -565,8 +609,13 @@
               <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-laser to-emerald-600 flex items-center justify-center text-[10px] font-bold text-black">
                 MA
               </div>
-              <span class="text-xs font-bold text-zinc-200">Chị Mai Anh</span>
-              <span class="text-[10px] text-zinc-500 font-mono">Hà Nội ➔ Hạ Long</span>
+              <div class="flex items-center gap-1">
+                <span class="text-xs font-bold text-zinc-200">Chị Mai Anh</span>
+                <i data-lucide="badge-check" class="w-3.5 h-3.5 text-laser" title="Khách hàng đã đi xe"></i>
+              </div>
+              <span class="text-[10px] text-zinc-500 font-mono flex items-center gap-0.5">
+                <i data-lucide="map-pin" class="w-2.5 h-2.5 text-zinc-500"></i> Hà Nội ➔ Hạ Long
+              </span>
             </div>
             <div class="flex text-gold text-[10px]">★★★★★</div>
           </div>
@@ -581,14 +630,28 @@
     <footer class="pt-4 border-t border-white/5 text-center space-y-2">
       <div class="flex items-center justify-center space-x-2">
         <span class="w-1.5 h-1.5 rounded-full bg-gold"></span>
-        <span class="text-xs font-bold text-gold uppercase tracking-wider font-display">Tuấn Driver Executive Travel</span>
+        <span class="text-xs font-bold text-gold uppercase tracking-wider font-display flex items-center gap-1.5">
+          <i data-lucide="car-front" class="w-3.5 h-3.5"></i>
+          <span>Tuấn Driver Executive Travel</span>
+        </span>
         <span class="w-1.5 h-1.5 rounded-full bg-gold"></span>
       </div>
-      <p class="text-[10px] text-zinc-500">
-        Hotline / Zalo: 0912.345.678 • Hà Nội & Các Tuyến Liên Tỉnh
+      <p class="text-[10px] text-zinc-400 flex items-center justify-center flex-wrap gap-2">
+        <span class="flex items-center gap-1">
+          <i data-lucide="phone-call" class="w-3 h-3 text-gold"></i>
+          <span>0912.345.678</span>
+        </span>
+        <span class="text-zinc-600">•</span>
+        <span class="flex items-center gap-1">
+          <i data-lucide="map-pin" class="w-3 h-3 text-gold"></i>
+          <span>Hà Nội & Các Tuyến Liên Tỉnh</span>
+        </span>
       </p>
       <div class="pt-1">
-        <a href="admin.html" class="text-[10px] text-zinc-600 hover:text-gold transition font-mono">Quản trị viên (Admin PIN)</a>
+        <a href="admin.html" class="inline-flex items-center gap-1 text-[10px] text-zinc-600 hover:text-gold transition font-mono px-2 py-1 rounded bg-white/[0.02] border border-white/5 hover:border-gold/30">
+          <i data-lucide="lock-keyhole" class="w-3 h-3 text-zinc-500"></i>
+          <span>Quản trị viên (Admin PIN)</span>
+        </a>
       </div>
     </footer>
 
@@ -642,21 +705,33 @@
         </p>
       </div>
 
-      <div class="p-3 rounded-xl bg-canvas/80 border border-white/5 space-y-2 text-xs">
-        <div class="flex justify-between text-zinc-400">
-          <span>Lộ trình:</span>
-          <span id="modalRoute" class="text-white font-medium">Hà Nội ➔ Nội Bài</span>
+      <div class="p-3 rounded-xl bg-canvas/80 border border-white/5 space-y-2.5 text-xs">
+        <div class="flex justify-between items-center text-zinc-400">
+          <span class="flex items-center gap-1.5">
+            <i data-lucide="route" class="w-3.5 h-3.5 text-gold"></i>
+            <span>Lộ trình:</span>
+          </span>
+          <span id="modalRoute" class="text-white font-medium text-right">Hà Nội ➔ Nội Bài</span>
         </div>
-        <div class="flex justify-between text-zinc-400">
-          <span>Hình thức:</span>
+        <div class="flex justify-between items-center text-zinc-400">
+          <span class="flex items-center gap-1.5">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-gold"></i>
+            <span>Hình thức:</span>
+          </span>
           <span id="modalMode" class="text-gold font-medium">Bao trọn xe</span>
         </div>
-        <div class="flex justify-between text-zinc-400">
-          <span>Dự kiến cước:</span>
+        <div class="flex justify-between items-center text-zinc-400">
+          <span class="flex items-center gap-1.5">
+            <i data-lucide="wallet" class="w-3.5 h-3.5 text-laser"></i>
+            <span>Dự kiến cước:</span>
+          </span>
           <span id="modalPrice" class="text-laser font-mono font-bold">350.000 VNĐ</span>
         </div>
-        <div class="flex justify-between text-zinc-400">
-          <span>Số điện thoại:</span>
+        <div class="flex justify-between items-center text-zinc-400">
+          <span class="flex items-center gap-1.5">
+            <i data-lucide="phone" class="w-3.5 h-3.5 text-zinc-400"></i>
+            <span>Số điện thoại:</span>
+          </span>
           <span id="modalPhone" class="text-white font-mono">0912345678</span>
         </div>
       </div>
@@ -668,13 +743,14 @@
           target="_blank" 
           class="w-full h-11 rounded-xl bg-gradient-to-r from-blue-600 to-sky-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md">
           <i data-lucide="message-square" class="w-4 h-4"></i>
-          Mở Zalo Xác Nhận Lịch Ngay
+          <span>Mở Zalo Xác Nhận Lịch Ngay</span>
         </a>
         <button 
           type="button" 
           onclick="closeBookingModal()" 
-          class="w-full h-10 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-400 text-xs font-semibold">
-          Đóng cửa sổ
+          class="w-full h-10 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-400 text-xs font-semibold flex items-center justify-center gap-1">
+          <i data-lucide="x" class="w-3.5 h-3.5"></i>
+          <span>Đóng cửa sổ</span>
         </button>
       </div>
     </div>
@@ -858,13 +934,15 @@
         btnBao.classList.remove('text-zinc-400');
         btnGhep.classList.remove('active');
         btnGhep.classList.add('text-zinc-400');
-        seatInfoBadge.textContent = '1 - 4 Khách / Riêng xe';
+        const seatText = document.getElementById('seatInfoText');
+        if (seatText) seatText.textContent = '1 - 4 Khách / Riêng xe';
       } else {
         btnGhep.classList.add('active');
         btnGhep.classList.remove('text-zinc-400');
         btnBao.classList.remove('active');
         btnBao.classList.add('text-zinc-400');
-        seatInfoBadge.textContent = '1 Ghế Tiện Chuyến';
+        const seatText = document.getElementById('seatInfoText');
+        if (seatText) seatText.textContent = '1 Ghế Tiện Chuyến';
       }
 
       updatePriceDisplay(false);
