@@ -194,29 +194,20 @@
       <div id="holidayDetails" class="space-y-2.5 pt-2 border-t border-white/5">
         <div class="grid grid-cols-2 gap-2">
           <div>
-            <label class="block text-[10px] text-zinc-400 mb-1 flex items-center gap-1">
-              <i data-lucide="percent" class="w-3 h-3 text-gold"></i>
-              <span>Kiểu phụ thu</span>
-            </label>
+            <label class="block text-[10px] text-zinc-400 mb-1">Kiểu phụ thu</label>
             <select id="holidaySurgeType" onchange="updateHolidaySettings()" class="w-full h-9 px-2 rounded-lg bg-canvas border border-white/10 text-xs font-semibold text-white outline-none">
               <option value="percent">Cộng theo % (+20%)</option>
               <option value="flat">Cộng tiền mặt (+100.000đ)</option>
             </select>
           </div>
           <div>
-            <label class="block text-[10px] text-zinc-400 mb-1 flex items-center gap-1">
-              <i data-lucide="calculator" class="w-3 h-3 text-gold"></i>
-              <span>Giá trị cộng</span>
-            </label>
+            <label class="block text-[10px] text-zinc-400 mb-1">Giá trị cộng</label>
             <input type="number" id="holidaySurgeValue" onchange="updateHolidaySettings()" class="w-full h-9 px-2.5 rounded-lg bg-canvas border border-white/10 text-xs font-mono font-bold text-gold outline-none" value="20">
           </div>
         </div>
 
         <div>
-          <label class="block text-[10px] text-zinc-400 mb-1 flex items-center gap-1">
-            <i data-lucide="message-square" class="w-3 h-3 text-gold"></i>
-            <span>Dòng chữ thông báo ngoài trang chủ</span>
-          </label>
+          <label class="block text-[10px] text-zinc-400 mb-1">Dòng chữ thông báo ngoài trang chủ</label>
           <input type="text" id="holidayNoticeText" onchange="updateHolidaySettings()" class="w-full h-9 px-2.5 rounded-lg bg-canvas border border-white/10 text-xs text-white outline-none" value="Đã áp dụng phụ thu dịp Lễ/Tết">
         </div>
       </div>
@@ -242,10 +233,7 @@
       </div>
 
       <div class="space-y-1.5">
-        <label class="block text-[10px] text-zinc-400 flex items-center gap-1">
-          <i data-lucide="bell-ring" class="w-3 h-3 text-laser"></i>
-          <span>Nội dung thông báo xe rỗng:</span>
-        </label>
+        <label class="block text-[10px] text-zinc-400">Nội dung thông báo xe rỗng:</label>
         <div class="relative">
           <input 
             type="text" 
@@ -255,10 +243,7 @@
           />
         </div>
         <div class="flex justify-between items-center pt-1">
-          <span class="text-[10px] text-zinc-500 flex items-center gap-1">
-            <i data-lucide="info" class="w-3 h-3 text-zinc-500"></i>
-            <span>Khách bấm vào sẽ tự động điền lộ trình này</span>
-          </span>
+          <span class="text-[10px] text-zinc-500">Khách bấm vào sẽ tự động điền lộ trình này</span>
           <button type="button" onclick="saveBannerNotice()" class="px-3 py-1.5 rounded-lg bg-laser/15 hover:bg-laser/25 text-laser border border-laser/40 text-xs font-bold transition flex items-center gap-1">
             <i data-lucide="check" class="w-3.5 h-3.5"></i> Lưu tin
           </button>
@@ -270,10 +255,7 @@
     <section class="space-y-3">
       <div class="flex items-center justify-between">
         <div>
-          <h2 class="text-xs font-bold text-white uppercase tracking-wider font-display flex items-center gap-1.5">
-            <i data-lucide="route" class="w-4 h-4 text-gold"></i>
-            <span>Bảng Giá Từng Tuyến Đường</span>
-          </h2>
+          <h2 class="text-xs font-bold text-white uppercase tracking-wider font-display">Bảng Giá Từng Tuyến Đường</h2>
           <p class="text-[10px] text-zinc-400">Sửa trực tiếp cước Bao xe và cước Đi ghép</p>
         </div>
         <button type="button" onclick="saveAllRoutes()" class="px-3 py-1.5 rounded-lg bg-gold text-black text-xs font-extrabold shadow-sm active:scale-95 transition flex items-center gap-1">
@@ -302,34 +284,22 @@
       <div class="space-y-2.5 text-xs">
         <div class="grid grid-cols-2 gap-2">
           <div>
-            <label class="block text-[10px] text-zinc-400 mb-1 flex items-center gap-1">
-              <i data-lucide="user" class="w-3 h-3 text-gold"></i>
-              <span>Tên tài xế</span>
-            </label>
+            <label class="block text-[10px] text-zinc-400 mb-1">Tên tài xế</label>
             <input type="text" id="cfgDriverName" class="w-full h-9 px-2.5 rounded-lg bg-canvas border border-white/10 text-white font-medium outline-none" value="Lê Tuấn">
           </div>
           <div>
-            <label class="block text-[10px] text-zinc-400 mb-1 flex items-center gap-1">
-              <i data-lucide="phone" class="w-3 h-3 text-laser"></i>
-              <span>Số điện thoại / Zalo</span>
-            </label>
+            <label class="block text-[10px] text-zinc-400 mb-1">Số điện thoại / Zalo</label>
             <input type="text" id="cfgDriverPhone" class="w-full h-9 px-2.5 rounded-lg bg-canvas border border-white/10 text-laser font-mono font-medium outline-none" value="0912345678">
           </div>
         </div>
 
         <div class="grid grid-cols-2 gap-2">
           <div>
-            <label class="block text-[10px] text-zinc-400 mb-1 flex items-center gap-1">
-              <i data-lucide="key-round" class="w-3 h-3 text-gold"></i>
-              <span>Mã PIN quản trị mới</span>
-            </label>
+            <label class="block text-[10px] text-zinc-400 mb-1">Mã PIN quản trị mới</label>
             <input type="password" id="cfgAdminPin" maxlength="4" class="w-full h-9 px-2.5 rounded-lg bg-canvas border border-white/10 text-gold font-mono font-bold outline-none" value="1990">
           </div>
           <div>
-            <label class="block text-[10px] text-zinc-400 mb-1 flex items-center gap-1">
-              <i data-lucide="car-front" class="w-3 h-3 text-white"></i>
-              <span>Dòng xe hiển thị</span>
-            </label>
+            <label class="block text-[10px] text-zinc-400 mb-1">Dòng xe hiển thị</label>
             <input type="text" id="cfgCarModel" class="w-full h-9 px-2.5 rounded-lg bg-canvas border border-white/10 text-white outline-none" value="Mazda CX-5 Luxury 2024">
           </div>
         </div>
@@ -577,7 +547,6 @@
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-1.5">
               <span class="w-2 h-2 rounded-full ${route.is_active ? 'bg-laser shadow-laser-glow' : 'bg-zinc-600'}"></span>
-              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-gold"></i>
               <h3 class="text-xs font-bold text-white">${route.name}</h3>
             </div>
             <label class="relative inline-flex items-center cursor-pointer">
@@ -588,10 +557,7 @@
 
           <div class="grid grid-cols-2 gap-2">
             <div>
-              <label class="block text-[10px] text-zinc-400 mb-0.5 flex items-center gap-1">
-                <i data-lucide="car" class="w-3 h-3 text-gold"></i>
-                <span>Giá Bao Xe (VNĐ)</span>
-              </label>
+              <label class="block text-[10px] text-zinc-400 mb-0.5">Giá Bao Xe (VNĐ)</label>
               <input 
                 type="number" 
                 step="10000"
@@ -601,10 +567,7 @@
               />
             </div>
             <div>
-              <label class="block text-[10px] text-zinc-400 mb-0.5 flex items-center gap-1">
-                <i data-lucide="users" class="w-3 h-3 text-laser"></i>
-                <span>Giá Ghép (VNĐ)</span>
-              </label>
+              <label class="block text-[10px] text-zinc-400 mb-0.5">Giá Ghép (VNĐ)</label>
               <input 
                 type="number" 
                 step="10000"
@@ -619,7 +582,6 @@
 
         container.appendChild(card);
       });
-      lucide.createIcons();
     }
 
     // Toggle Route Active
