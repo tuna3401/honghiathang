@@ -785,6 +785,12 @@
   <!-- JAVASCRIPT APPLICATION LOGIC               -->
   <!-- ========================================== -->
   <script>
+    // ========================================================
+    // CẤU HÌNH TELEGRAM BOT & THÔNG BÁO TÀI XẾ (ĐIỀN VÀO ĐÂY)
+    // ========================================================
+    const TELEGRAM_BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE'; // Điền Token Bot của bạn (vd: '7123456789:AAH...')
+    const TELEGRAM_CHAT_ID = 'YOUR_CHAT_ID_HERE';     // Điền Chat ID cá nhân của bạn (vd: '987654321')
+
     const STORAGE_KEY = 'thanhai_app_settings';
 
     // System Configurations & Data Model
@@ -793,8 +799,8 @@
       driverPhone: '0912345678',
       zaloPhone: '0912345678',
       telegram: {
-        botToken: 'YOUR_BOT_TOKEN_HERE',
-        chatId: 'YOUR_CHAT_ID_HERE',
+        botToken: TELEGRAM_BOT_TOKEN,
+        chatId: TELEGRAM_CHAT_ID,
         enabled: true
       },
       holidayMode: {
@@ -1125,36 +1131,44 @@
       `;
       lucide.createIcons();
 
-      // Compose Telegram & Zalo Message
-      const messageContent = 
-`🚖 YÊU CẦU ĐẶT XE MỚI:
-• Tuyến: ${routeData.name}
-• Hình thức: ${modeText}
-• Giá dự kiến: ${priceText}
-• Thời gian đón: ${time}
-• Điểm đón: ${pickup}
-• Tên khách: ${name}
-• SĐT: ${phone}
-• Yêu cầu thêm: ${styleText}`;
+      // Compose Telegram Formatted Message (HTML)
+      const telegramHtmlMessage = 
+`🔔 <b>CÓ ĐƠN ĐẶT XE MỚI TỪ WEBSITE!</b>
+━━━━━━━━━━━━━━━━━━
+🚖 <b>Lộ trình:</b> ${routeData.name}
+✨ <b>Hình thức:</b> ${modeText}
+💵 <b>Dự kiến:</b> <code>${priceText}</code>
+⏰ <b>Thời gian đón:</b> <b>${time}</b>
+📍 <b>Điểm đón:</b> ${pickup}
+👤 <b>Khách hàng:</b> ${name}
+📞 <b>Số điện thoại:</b> <a href="tel:${phone}">${phone}</a>
+🏷 <b>Ghi chú/Tiện ích:</b> <i>${styleText}</i>
+━━━━━━━━━━━━━━━━━━
+👉 <i>Khách đang được chuyển tiếp mở Zalo để gửi tin nhắn. Bấm số điện thoại trên để gọi đón ngay!</i>`;
 
-      // 1. Send Background Webhook to Telegram (Safe Try/Catch)
-      try {
-        if (APP_CONFIG.telegram.botToken !== 'YOUR_BOT_TOKEN_HERE') {
-          await fetch(`https://api.telegram.org/bot${APP_CONFIG.telegram.botToken}/sendMessage`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              chat_id: APP_CONFIG.telegram.chatId,
-              text: messageContent,
-              parse_mode: 'HTML'
-            })
-          });
-        }
-      } catch (err) {
-        console.warn('Telegram webhook notice:', err);
+      // 1. Gọi ngầm link API Telegram để báo chuông về máy tài xế
+      const activeBotToken = TELEGRAM_BOT_TOKEN !== 'YOUR_BOT_TOKEN_HERE' ? TELEGRAM_BOT_TOKEN : APP_CONFIG.telegram.botToken;
+      const activeChatId = TELEGRAM_CHAT_ID !== 'YOUR_CHAT_ID_HERE' ? TELEGRAM_CHAT_ID : APP_CONFIG.telegram.chatId;
+
+      if (activeBotToken && activeBotToken !== 'YOUR_BOT_TOKEN_HERE') {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 4000); // Không làm nghẽn tiến trình nếu mạng chậm
+
+        fetch(`https://api.telegram.org/bot${activeBotToken}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: activeChatId,
+            text: telegramHtmlMessage,
+            parse_mode: 'HTML'
+          }),
+          signal: controller.signal
+        })
+        .then(() => clearTimeout(timeoutId))
+        .catch(err => console.warn('Telegram API notice:', err));
       }
 
-      // 2. Prepare Zalo Deep Link
+      // 2. Prepare Zalo Deep Link điền sẵn tin nhắn cuốc xe
       const zaloEncodedText = encodeURIComponent(
 `Chào Tuấn Driver, tôi muốn đặt xe:
 - Tuyến: ${routeData.name}
