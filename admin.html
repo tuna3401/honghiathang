@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="vi" class="scroll-smooth">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Quản Trị Viên | Tuấn Driver Cockpit Control</title>
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Quản Trị Viên | Hồ Nghĩa Thắng</title>
   <meta name="robots" content="noindex, nofollow">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@700&display=swap"
+    rel="stylesheet">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -18,24 +22,16 @@
       theme: {
         extend: {
           colors: {
-            canvas: '#04060A',
-            panel: '#0D111A',
-            panelLight: '#141A26',
-            recessed: '#070A10',
-            gold: '#E5C378',
-            goldHover: '#F3D698',
-            laser: '#00F59B',
+            brand: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              600: '#059669',
+              700: '#047857',
+            }
           },
           fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            display: ['"Space Grotesk"', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
             mono: ['"Space Mono"', 'monospace'],
-          },
-          boxShadow: {
-            'gold-glow': '0 0 30px -5px rgba(229, 195, 120, 0.22), inset 0 1px 0 0 rgba(255, 255, 255, 0.15)',
-            'gold-card': '0 10px 30px -10px rgba(0, 0, 0, 0.8), 0 0 20px -3px rgba(229, 195, 120, 0.15)',
-            'laser-glow': '0 0 15px rgba(0, 245, 155, 0.4)',
-            'recessed': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(255, 255, 255, 0.05)',
           }
         }
       }
@@ -45,392 +41,324 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
+  <!-- Pricing Config -->
+  <script src="./pricingConfig.js"></script>
+
   <style>
-    :root { color-scheme: dark; }
     body {
-      background-color: #04060A;
-      color: #E2E8F0;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
     }
-    /* Pin Dot indicator */
+
     .pin-dot {
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
+
     .pin-dot.filled {
-      background-color: #E5C378;
-      box-shadow: 0 0 12px rgba(229, 195, 120, 0.8);
+      background-color: #059669;
+      box-shadow: 0 0 12px rgba(5, 150, 105, 0.6);
       transform: scale(1.15);
     }
-    /* Keypad button press */
+
     .key-btn {
       touch-action: manipulation;
       transition: all 0.12s ease-in-out;
     }
+
     .key-btn:active {
       transform: scale(0.92);
-      background-color: rgba(229, 195, 120, 0.2);
-    }
-    /* Toggle Switch Styling */
-    .toggle-checkbox:checked {
-      right: 0;
-      border-color: #00F59B;
-    }
-    .toggle-checkbox:checked + .toggle-label {
-      background-color: #00F59B;
-      box-shadow: 0 0 14px rgba(0, 245, 155, 0.45);
+      background-color: #d1fae5;
     }
   </style>
 </head>
 
-<body class="selection:bg-gold selection:text-black min-h-screen">
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen">
 
   <!-- ========================================== -->
-  <!-- 1. PIN LOCK SCREEN (Default PIN: 1990)     -->
+  <!-- 1. PIN LOCK SCREEN (Mã PIN mặc định: 1990) -->
   <!-- ========================================== -->
-  <section id="pinLockScreen" class="fixed inset-0 z-50 bg-canvas flex flex-col justify-between items-center p-6 max-w-md mx-auto">
+  <section id="pinLockScreen"
+    class="fixed inset-0 z-50 bg-slate-50 flex flex-col justify-between items-center p-6 max-w-md mx-auto">
     <!-- Top Branding -->
     <div class="text-center pt-8 space-y-2">
-      <div class="w-14 h-14 mx-auto rounded-2xl bg-panel border border-gold/40 flex items-center justify-center text-gold shadow-gold-glow">
+      <div
+        class="w-14 h-14 mx-auto rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-emerald-600 shadow-sm">
         <i data-lucide="shield-check" class="w-7 h-7"></i>
       </div>
-      <h1 class="text-lg font-bold text-white font-display tracking-tight">KHOANG QUẢN TRỊ TÀI XẾ</h1>
-      <p class="text-xs text-zinc-400">Nhập mã PIN bảo mật 4 số để tiếp tục</p>
+      <h1 class="text-lg font-bold text-slate-900 tracking-tight">KHOANG QUẢN TRỊ BÁC TÀI</h1>
+      <p class="text-xs text-slate-500">Hồ Nghĩa Thắng • Nhập mã PIN 4 số</p>
     </div>
 
     <!-- PIN Dots -->
     <div class="space-y-4 text-center">
       <div class="flex items-center justify-center gap-4 py-2">
-        <div id="dot1" class="pin-dot w-4 h-4 rounded-full border-2 border-gold/50 bg-transparent"></div>
-        <div id="dot2" class="pin-dot w-4 h-4 rounded-full border-2 border-gold/50 bg-transparent"></div>
-        <div id="dot3" class="pin-dot w-4 h-4 rounded-full border-2 border-gold/50 bg-transparent"></div>
-        <div id="dot4" class="pin-dot w-4 h-4 rounded-full border-2 border-gold/50 bg-transparent"></div>
+        <div id="dot1" class="pin-dot w-4 h-4 rounded-full border-2 border-slate-300 bg-transparent"></div>
+        <div id="dot2" class="pin-dot w-4 h-4 rounded-full border-2 border-slate-300 bg-transparent"></div>
+        <div id="dot3" class="pin-dot w-4 h-4 rounded-full border-2 border-slate-300 bg-transparent"></div>
+        <div id="dot4" class="pin-dot w-4 h-4 rounded-full border-2 border-slate-300 bg-transparent"></div>
       </div>
-      <p id="pinErrorMsg" class="text-xs font-semibold text-rose-400 h-4 transition-opacity opacity-0">Mã PIN không đúng, vui lòng thử lại!</p>
+      <p id="pinErrorMsg" class="text-xs font-semibold text-rose-500 h-4 transition-opacity opacity-0">Mã PIN không
+        đúng, vui lòng thử lại!</p>
     </div>
 
-    <!-- Tactile Numeric Keypad -->
+    <!-- Keypad -->
     <div class="w-full max-w-xs space-y-3 pb-6">
       <div class="grid grid-cols-3 gap-3">
-        <button type="button" onclick="handleKeyClick('1')" class="key-btn h-14 rounded-2xl bg-panel border border-white/10 text-xl font-bold font-display text-white">1</button>
-        <button type="button" onclick="handleKeyClick('2')" class="key-btn h-14 rounded-2xl bg-panel border border-white/10 text-xl font-bold font-display text-white">2</button>
-        <button type="button" onclick="handleKeyClick('3')" class="key-btn h-14 rounded-2xl bg-panel border border-white/10 text-xl font-bold font-display text-white">3</button>
+        <button type="button" onclick="handleKeyClick('1')"
+          class="key-btn h-14 rounded-2xl bg-white border border-slate-200 text-xl font-bold text-slate-800 shadow-sm">1</button>
+        <button type="button" onclick="handleKeyClick('2')"
+          class="key-btn h-14 rounded-2xl bg-white border border-slate-200 text-xl font-bold text-slate-800 shadow-sm">2</button>
+        <button type="button" onclick="handleKeyClick('3')"
+          class="key-btn h-14 rounded-2xl bg-white border border-slate-200 text-xl font-bold text-slate-800 shadow-sm">3</button>
 
-        <button type="button" onclick="handleKeyClick('4')" class="key-btn h-14 rounded-2xl bg-panel border border-white/10 text-xl font-bold font-display text-white">4</button>
-        <button type="button" onclick="handleKeyClick('5')" class="key-btn h-14 rounded-2xl bg-panel border border-white/10 text-xl font-bold font-display text-white">5</button>
-        <button type="button" onclick="handleKeyClick('6')" class="key-btn h-14 rounded-2xl bg-panel border border-white/10 text-xl font-bold font-display text-white">6</button>
+        <button type="button" onclick="handleKeyClick('4')"
+          class="key-btn h-14 rounded-2xl bg-white border border-slate-200 text-xl font-bold text-slate-800 shadow-sm">4</button>
+        <button type="button" onclick="handleKeyClick('5')"
+          class="key-btn h-14 rounded-2xl bg-white border border-slate-200 text-xl font-bold text-slate-800 shadow-sm">5</button>
+        <button type="button" onclick="handleKeyClick('6')"
+          class="key-btn h-14 rounded-2xl bg-white border border-slate-200 text-xl font-bold text-slate-800 shadow-sm">6</button>
 
-        <button type="button" onclick="handleKeyClick('7')" class="key-btn h-14 rounded-2xl bg-panel border border-white/10 text-xl font-bold font-display text-white">7</button>
-        <button type="button" onclick="handleKeyClick('8')" class="key-btn h-14 rounded-2xl bg-panel border border-white/10 text-xl font-bold font-display text-white">8</button>
-        <button type="button" onclick="handleKeyClick('9')" class="key-btn h-14 rounded-2xl bg-panel border border-white/10 text-xl font-bold font-display text-white">9</button>
+        <button type="button" onclick="handleKeyClick('7')"
+          class="key-btn h-14 rounded-2xl bg-white border border-slate-200 text-xl font-bold text-slate-800 shadow-sm">7</button>
+        <button type="button" onclick="handleKeyClick('8')"
+          class="key-btn h-14 rounded-2xl bg-white border border-slate-200 text-xl font-bold text-slate-800 shadow-sm">8</button>
+        <button type="button" onclick="handleKeyClick('9')"
+          class="key-btn h-14 rounded-2xl bg-white border border-slate-200 text-xl font-bold text-slate-800 shadow-sm">9</button>
 
-        <button type="button" onclick="clearPin()" class="key-btn h-14 rounded-2xl bg-panel/40 text-xs font-semibold text-zinc-400 flex items-center justify-center">Xóa</button>
-        <button type="button" onclick="handleKeyClick('0')" class="key-btn h-14 rounded-2xl bg-panel border border-white/10 text-xl font-bold font-display text-white">0</button>
-        <button type="button" onclick="backspacePin()" class="key-btn h-14 rounded-2xl bg-panel/40 text-zinc-300 flex items-center justify-center">
+        <button type="button" onclick="clearPin()"
+          class="key-btn h-14 rounded-2xl bg-slate-100 text-xs font-semibold text-slate-500 flex items-center justify-center">Xóa</button>
+        <button type="button" onclick="handleKeyClick('0')"
+          class="key-btn h-14 rounded-2xl bg-white border border-slate-200 text-xl font-bold text-slate-800 shadow-sm">0</button>
+        <button type="button" onclick="backspacePin()"
+          class="key-btn h-14 rounded-2xl bg-slate-100 text-slate-600 flex items-center justify-center">
           <i data-lucide="delete" class="w-5 h-5"></i>
         </button>
       </div>
 
-      <!-- Quick back to index link -->
       <div class="text-center pt-2">
-        <a href="index.html" class="text-xs text-zinc-500 hover:text-gold transition flex items-center justify-center gap-1">
-          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Về lại màn hình đặt xe
+        <a href="index.html"
+          class="text-xs text-slate-500 hover:text-emerald-700 transition flex items-center justify-center gap-1 font-medium">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Về lại màn hình chính
         </a>
       </div>
     </div>
   </section>
 
   <!-- ========================================== -->
-  <!-- 2. ADMIN DASHBOARD COCKPIT (After Unlock)  -->
+  <!-- 2. ADMIN DASHBOARD COCKPIT (Sau khi mở khóa)-->
   <!-- ========================================== -->
-  <div id="adminDashboard" class="hidden max-w-md mx-auto px-4 py-4 space-y-5 pb-28">
-    
-    <!-- TOP ADMIN HEADER -->
-    <header class="flex items-center justify-between py-2 border-b border-white/10">
+  <div id="adminDashboard" class="hidden max-w-lg mx-auto px-4 py-6 space-y-6 pb-24">
+
+    <!-- Top Header -->
+    <header class="flex items-center justify-between pb-3 border-b border-slate-200">
       <div class="flex items-center gap-2.5">
-        <div class="w-9 h-9 rounded-xl bg-gold/15 border border-gold/40 flex items-center justify-center text-gold shadow-sm">
-          <i data-lucide="sliders-horizontal" class="w-4 h-4"></i>
+        <div
+          class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-100">
+          <i data-lucide="sliders" class="w-5 h-5"></i>
         </div>
         <div>
-          <h1 class="text-sm font-bold text-white font-display">Bảng Điều Khiển Cước</h1>
-          <p class="text-[11px] text-zinc-400 flex items-center gap-1">
-            <span class="w-1.5 h-1.5 rounded-full bg-laser animate-pulse"></span>
-            Tài xế: Tuấn (Mazda CX-5)
-          </p>
+          <h1 class="text-base font-bold text-slate-900">BẢNG ĐIỀU KHIỂN BÁC TÀI</h1>
+          <p class="text-xs text-slate-500">Hồ Nghĩa Thắng • Quản lý giá theo Km</p>
         </div>
       </div>
-
       <div class="flex items-center gap-2">
-        <a href="index.html" class="p-2 rounded-lg bg-panel border border-white/10 text-zinc-300 hover:text-gold transition" title="Xem trang chủ">
-          <i data-lucide="external-link" class="w-4 h-4"></i>
+        <a href="index.html" target="_blank"
+          class="h-9 px-3 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-emerald-600 flex items-center gap-1.5 shadow-sm">
+          <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Xem web
         </a>
-        <button type="button" onclick="lockAdmin()" class="p-2 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-400 hover:bg-rose-500/20 transition" title="Khóa màn hình">
+        <button type="button" onclick="lockAdmin()"
+          class="h-9 w-9 rounded-xl bg-white border border-slate-200 text-slate-400 hover:text-rose-500 flex items-center justify-center shadow-sm">
           <i data-lucide="lock" class="w-4 h-4"></i>
         </button>
       </div>
     </header>
 
-    <!-- SECTION A: 1-TOUCH HOLIDAY SURGE MODE -->
-    <section class="p-4 rounded-2xl bg-panel border border-gold/30 shadow-gold-card space-y-3.5">
-      <div class="flex items-center justify-between">
+    <!-- SECTION A: KILOMETER PRICING CONFIGURATION -->
+    <section class="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-sm space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100">
         <div class="flex items-center gap-2">
-          <div class="w-7 h-7 rounded-lg bg-gold/15 text-gold flex items-center justify-center">
-            <i data-lucide="calendar-heart" class="w-4 h-4"></i>
+          <div class="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+            <i data-lucide="calculator" class="w-4 h-4"></i>
           </div>
           <div>
-            <h2 class="text-xs font-bold text-white uppercase tracking-wider">Phụ Thu Dịp Lễ / Tết</h2>
-            <p class="text-[10px] text-zinc-400">Tự động tăng giá khi kích hoạt</p>
+            <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wide">Bảng Giá Theo Kilomet</h2>
+            <p class="text-[11px] text-slate-500">Cước bậc thang & giảm giá khứ hồi</p>
           </div>
         </div>
-
-        <!-- 1-Touch Toggle Switch -->
-        <label class="relative inline-flex items-center cursor-pointer">
-          <input type="checkbox" id="holidayToggle" onchange="toggleHolidayMode(this.checked)" class="sr-only peer">
-          <div class="w-11 h-6 bg-recessed peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-laser shadow-recessed"></div>
-        </label>
-      </div>
-
-      <div id="holidayDetails" class="space-y-2.5 pt-2 border-t border-white/5">
-        <div class="grid grid-cols-2 gap-2">
-          <div>
-            <label class="block text-[10px] text-zinc-400 mb-1">Kiểu phụ thu</label>
-            <select id="holidaySurgeType" onchange="updateHolidaySettings()" class="w-full h-9 px-2 rounded-lg bg-canvas border border-white/10 text-xs font-semibold text-white outline-none">
-              <option value="percent">Cộng theo % (+20%)</option>
-              <option value="flat">Cộng tiền mặt (+100.000đ)</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-[10px] text-zinc-400 mb-1">Giá trị cộng</label>
-            <input type="number" id="holidaySurgeValue" onchange="updateHolidaySettings()" class="w-full h-9 px-2.5 rounded-lg bg-canvas border border-white/10 text-xs font-mono font-bold text-gold outline-none" value="20">
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-[10px] text-zinc-400 mb-1">Dòng chữ thông báo ngoài trang chủ</label>
-          <input type="text" id="holidayNoticeText" onchange="updateHolidaySettings()" class="w-full h-9 px-2.5 rounded-lg bg-canvas border border-white/10 text-xs text-white outline-none" value="Đã áp dụng phụ thu dịp Lễ/Tết">
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION B: EMPTY SEAT FLASH NOTICE (XE RỖNG TIỆN CHUYẾN) -->
-    <section class="p-4 rounded-2xl bg-panel border border-laser/30 shadow-sm space-y-3">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <div class="w-7 h-7 rounded-lg bg-laser/15 text-laser flex items-center justify-center">
-            <i data-lucide="zap" class="w-4 h-4"></i>
-          </div>
-          <div>
-            <h2 class="text-xs font-bold text-white uppercase tracking-wider">Thông Báo Xe Rỗng Tiện Chuyến</h2>
-            <p class="text-[10px] text-zinc-400">Hiển thị thanh chạy chữ ưu tiên ở trang chủ</p>
-          </div>
-        </div>
-
-        <label class="relative inline-flex items-center cursor-pointer">
-          <input type="checkbox" id="bannerActiveToggle" onchange="toggleBannerNotice(this.checked)" class="sr-only peer" checked>
-          <div class="w-11 h-6 bg-recessed peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-laser shadow-recessed"></div>
-        </label>
-      </div>
-
-      <div class="space-y-1.5">
-        <label class="block text-[10px] text-zinc-400">Nội dung thông báo xe rỗng:</label>
-        <div class="relative">
-          <input 
-            type="text" 
-            id="emptyCarNoticeInput" 
-            placeholder="Vd: Chiều nay 17h rỗng xe Nội Bài ➔ Cầu Giấy (Chỉ 180k)" 
-            class="w-full h-10 px-3 rounded-xl bg-canvas border border-white/10 text-xs text-laser font-medium outline-none focus:border-laser"
-          />
-        </div>
-        <div class="flex justify-between items-center pt-1">
-          <span class="text-[10px] text-zinc-500">Khách bấm vào sẽ tự động điền lộ trình này</span>
-          <button type="button" onclick="saveBannerNotice()" class="px-3 py-1.5 rounded-lg bg-laser/15 hover:bg-laser/25 text-laser border border-laser/40 text-xs font-bold transition flex items-center gap-1">
-            <i data-lucide="check" class="w-3.5 h-3.5"></i> Lưu tin
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION C: ROUTE & FARE MANAGEMENT TABLE -->
-    <section class="space-y-3">
-      <div class="flex items-center justify-between">
-        <div>
-          <h2 class="text-xs font-bold text-white uppercase tracking-wider font-display">Bảng Giá Từng Tuyến Đường</h2>
-          <p class="text-[10px] text-zinc-400">Sửa trực tiếp cước Bao xe và cước Đi ghép</p>
-        </div>
-        <button type="button" onclick="saveAllRoutes()" class="px-3 py-1.5 rounded-lg bg-gold text-black text-xs font-extrabold shadow-sm active:scale-95 transition flex items-center gap-1">
-          <i data-lucide="save" class="w-3.5 h-3.5"></i> Lưu tất cả giá
+        <button type="button" onclick="saveKmPricing()"
+          class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-sm transition flex items-center gap-1">
+          <i data-lucide="save" class="w-3.5 h-3.5"></i> Lưu giá Km
         </button>
       </div>
 
-      <!-- Route Cards Container -->
-      <div id="routeListContainer" class="space-y-2.5">
-        <!-- Rendered dynamically by JavaScript -->
+      <div class="space-y-3 text-xs">
+        <!-- 0-5km -->
+        <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/60 flex items-center justify-between">
+          <div>
+            <span class="font-bold text-slate-800 block">Nấc 1: Mở cửa (0 - 5 Km đầu)</span>
+            <span class="text-[11px] text-slate-500">Cước trọn gói tối thiểu</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <input type="number" id="cfgMinFare" step="5000"
+              class="w-24 h-9 px-2.5 rounded-xl bg-white border border-slate-300 font-mono font-bold text-emerald-700 text-right outline-none focus:border-emerald-500"
+              value="100000">
+            <span class="font-mono text-slate-500">đ</span>
+          </div>
+        </div>
+
+        <!-- 6-30km -->
+        <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/60 flex items-center justify-between">
+          <div>
+            <span class="font-bold text-slate-800 block">Nấc 2: Cự ly gần (6 - 30 Km)</span>
+            <span class="text-[11px] text-slate-500">Nội thành & Sân bay</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <input type="number" id="cfgTier1Rate" step="500"
+              class="w-24 h-9 px-2.5 rounded-xl bg-white border border-slate-300 font-mono font-bold text-emerald-700 text-right outline-none focus:border-emerald-500"
+              value="12000">
+            <span class="font-mono text-slate-500">đ/km</span>
+          </div>
+        </div>
+
+        <!-- 31-100km -->
+        <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/60 flex items-center justify-between">
+          <div>
+            <span class="font-bold text-slate-800 block">Nấc 3: Liên tỉnh (31 - 100 Km)</span>
+            <span class="text-[11px] text-slate-500">Tỉnh lân cận tầm trung</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <input type="number" id="cfgTier2Rate" step="500"
+              class="w-24 h-9 px-2.5 rounded-xl bg-white border border-slate-300 font-mono font-bold text-emerald-700 text-right outline-none focus:border-emerald-500"
+              value="9500">
+            <span class="font-mono text-slate-500">đ/km</span>
+          </div>
+        </div>
+
+        <!-- >100km -->
+        <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/60 flex items-center justify-between">
+          <div>
+            <span class="font-bold text-slate-800 block">Nấc 4: Đường dài (> 100 Km)</span>
+            <span class="text-[11px] text-slate-500">Siêu tiết kiệm</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <input type="number" id="cfgTier3Rate" step="500"
+              class="w-24 h-9 px-2.5 rounded-xl bg-white border border-slate-300 font-mono font-bold text-emerald-700 text-right outline-none focus:border-emerald-500"
+              value="8500">
+            <span class="font-mono text-slate-500">đ/km</span>
+          </div>
+        </div>
+
+        <!-- Khứ hồi -->
+        <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/60 flex items-center justify-between">
+          <div>
+            <span class="font-bold text-slate-800 block">Tỷ lệ giảm giá chiều về (Khứ hồi)</span>
+            <span class="text-[11px] text-slate-500">Mặc định 0.4 = giảm 40%</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <input type="number" id="cfgRoundDiscount" step="0.05" min="0.1" max="0.7"
+              class="w-24 h-9 px-2.5 rounded-xl bg-white border border-slate-300 font-mono font-bold text-emerald-700 text-right outline-none focus:border-emerald-500"
+              value="0.4">
+            <span class="font-mono text-slate-500">(-40%)</span>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- SECTION D: DRIVER SETTINGS & CLOUD SYNC -->
-    <section class="p-4 rounded-2xl bg-panel border border-white/10 space-y-3">
-      <div class="flex items-center gap-2">
-        <div class="w-7 h-7 rounded-lg bg-white/10 text-zinc-300 flex items-center justify-center">
-          <i data-lucide="cloud-cog" class="w-4 h-4"></i>
+    <!-- SECTION B: THÔNG TIN TÀI XẾ & MÃ PIN -->
+    <section class="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-sm space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center">
+            <i data-lucide="user-check" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wide">Thông Tin Bác Tài</h2>
+            <p class="text-[11px] text-slate-500">Hotline, xe và mật mã PIN</p>
+          </div>
         </div>
-        <div>
-          <h2 class="text-xs font-bold text-white uppercase tracking-wider">Cấu Hình Tài Xế & Đồng Bộ Đám Mây</h2>
-          <p class="text-[10px] text-zinc-400">Firebase Firestore & Telegram Bot</p>
-        </div>
+        <button type="button" onclick="saveDriverSettings()"
+          class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold shadow-sm transition flex items-center gap-1">
+          <i data-lucide="check" class="w-3.5 h-3.5"></i> Cập nhật
+        </button>
       </div>
 
-      <div class="space-y-2.5 text-xs">
-        <div class="grid grid-cols-2 gap-2">
+      <div class="space-y-3 text-xs">
+        <div class="grid grid-cols-2 gap-2.5">
           <div>
-            <label class="block text-[10px] text-zinc-400 mb-1">Tên tài xế</label>
-            <input type="text" id="cfgDriverName" class="w-full h-9 px-2.5 rounded-lg bg-canvas border border-white/10 text-white font-medium outline-none" value="Lê Tuấn">
+            <label class="block text-[11px] text-slate-500 mb-1 font-semibold">Tên tài xế</label>
+            <input type="text" id="cfgDriverName"
+              class="w-full h-10 px-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 outline-none"
+              value="Hồ Nghĩa Thắng">
           </div>
           <div>
-            <label class="block text-[10px] text-zinc-400 mb-1">Số điện thoại / Zalo</label>
-            <input type="text" id="cfgDriverPhone" class="w-full h-9 px-2.5 rounded-lg bg-canvas border border-white/10 text-laser font-mono font-medium outline-none" value="0912345678">
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-2">
-          <div>
-            <label class="block text-[10px] text-zinc-400 mb-1">Mã PIN quản trị mới</label>
-            <input type="password" id="cfgAdminPin" maxlength="4" class="w-full h-9 px-2.5 rounded-lg bg-canvas border border-white/10 text-gold font-mono font-bold outline-none" value="1990">
-          </div>
-          <div>
-            <label class="block text-[10px] text-zinc-400 mb-1">Dòng xe hiển thị</label>
-            <input type="text" id="cfgCarModel" class="w-full h-9 px-2.5 rounded-lg bg-canvas border border-white/10 text-white outline-none" value="Mazda CX-5 Luxury 2024">
+            <label class="block text-[11px] text-slate-500 mb-1 font-semibold">Số điện thoại / Zalo</label>
+            <input type="text" id="cfgDriverPhone"
+              class="w-full h-10 px-3 rounded-xl bg-slate-50 border border-slate-200 text-emerald-700 font-mono font-bold outline-none"
+              value="0337545188">
           </div>
         </div>
 
-        <!-- Sync Actions -->
-        <div class="pt-2 flex items-center gap-2">
-          <button type="button" onclick="saveGeneralSettings()" class="flex-1 h-10 rounded-xl bg-gold/15 border border-gold/40 text-gold text-xs font-bold hover:bg-gold/25 transition flex items-center justify-center gap-1.5">
-            <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Cập Nhật Thông Tin
-          </button>
-          <button type="button" onclick="syncToFirestoreDemo()" class="h-10 px-3 rounded-xl bg-canvas border border-white/10 text-zinc-400 text-xs font-medium hover:text-white transition flex items-center gap-1">
-            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Đồng Bộ Cloud
-          </button>
+        <div class="grid grid-cols-2 gap-2.5">
+          <div>
+            <label class="block text-[11px] text-slate-500 mb-1 font-semibold">Dòng xe hiển thị</label>
+            <input type="text" id="cfgCarModel"
+              class="w-full h-10 px-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 outline-none"
+              value="Mazda CX-5 Luxury 2024">
+          </div>
+          <div>
+            <label class="block text-[11px] text-slate-500 mb-1 font-semibold">Mã PIN mới (4 số)</label>
+            <input type="password" id="cfgAdminPin" maxlength="4"
+              class="w-full h-10 px-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-mono font-bold outline-none"
+              value="1990">
+          </div>
         </div>
       </div>
     </section>
 
   </div>
 
-  <!-- FLOATING TOAST NOTIFICATION -->
-  <div id="toastNotification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-xl bg-panel border border-gold/50 shadow-gold-glow flex items-center gap-2 text-xs font-semibold text-gold transition-all duration-300 opacity-0 pointer-events-none translate-y-3">
-    <i data-lucide="sparkles" class="w-4 h-4 text-laser"></i>
+  <!-- FLOATING TOAST -->
+  <div id="toastNotification"
+    class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-2xl bg-slate-900 text-white shadow-xl flex items-center gap-2 text-xs font-semibold transition-all duration-300 opacity-0 pointer-events-none translate-y-3">
+    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
     <span id="toastMessage">Đã lưu cài đặt thành công!</span>
   </div>
 
-  <!-- ========================================== -->
-  <!-- JAVASCRIPT: PIN SECURITY & STATE LOGIC     -->
-  <!-- ========================================== -->
   <script>
-    // Storage Key
     const STORAGE_KEY = 'thanhai_app_settings';
 
-    // Default Initial State (conforming to PROJECT_OVERVIEW.md)
-    const DEFAULT_SETTINGS = {
-      driver_name: "Lê Tuấn",
-      car_model: "Mazda CX-5 Luxury 2024",
-      driver_phone: "0912345678",
-      zalo_link: "https://zalo.me/0912345678",
-      admin_pin: "1990",
-      banner_notice: "Chiều nay 17h rỗng xe Nội Bài ➔ Cầu Giấy (Chỉ 180k)",
-      banner_active: true,
-      holiday_mode: {
-        is_active: false,
-        surge_type: "percent", // 'percent' or 'flat'
-        surge_value: 20,
-        notice_text: "Đã áp dụng phụ thu dịp Lễ/Tết"
-      },
-      routes: [
-        {
-          id: "hn-nb",
-          name: "Hà Nội ➔ Sân Bay Nội Bài",
-          price_bao_xe: 350000,
-          price_ghep: 150000,
-          is_active: true,
-          allow_ghep: true
-        },
-        {
-          id: "nb-hn",
-          name: "Sân Bay Nội Bài ➔ Hà Nội",
-          price_bao_xe: 300000,
-          price_ghep: 140000,
-          is_active: true,
-          allow_ghep: true
-        },
-        {
-          id: "hn-hl",
-          name: "Hà Nội ➔ Hạ Long (Quảng Ninh)",
-          price_bao_xe: 1200000,
-          price_ghep: 250000,
-          is_active: true,
-          allow_ghep: true
-        },
-        {
-          id: "hn-hp",
-          name: "Hà Nội ➔ Hải Phòng (Cao tốc 5B)",
-          price_bao_xe: 950000,
-          price_ghep: 200000,
-          is_active: true,
-          allow_ghep: true
-        },
-        {
-          id: "hn-nb-tinh",
-          name: "Hà Nội ➔ Ninh Bình (Tràng An / TP)",
-          price_bao_xe: 900000,
-          price_ghep: 220000,
-          is_active: true,
-          allow_ghep: true
-        },
-        {
-          id: "noi-tinh",
-          name: "Nội tỉnh / Theo km riêng (11.000đ/km)",
-          price_bao_xe: 250000,
-          price_ghep: 0,
-          is_active: true,
-          allow_ghep: false
-        }
-      ]
-    };
+    let enteredPin = "";
+    let appSettings = loadStoredSettings();
 
-    // Load active settings from LocalStorage or initialize
-    function getStoredSettings() {
+    function loadStoredSettings() {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         try {
           return JSON.parse(stored);
         } catch (e) {
-          console.error('Error parsing settings:', e);
+          console.error(e);
         }
       }
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_SETTINGS));
-      return DEFAULT_SETTINGS;
+      return {
+        admin_pin: "1990",
+        driver_name: "Hồ Nghĩa Thắng",
+        driver_phone: "0337545188",
+        car_model: "Mazda CX-5 Luxury 2024",
+        pricing_config: {
+          minFare: 100000,
+          tier1Rate: 12000,
+          tier2Rate: 9500,
+          tier3Rate: 8500,
+          roundTripDiscount: 0.4
+        }
+      };
     }
 
-    function saveSettingsToStorage(settings) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
-    }
-
-    let appSettings = getStoredSettings();
-
-    // ------------------------------------------
-    // PIN SECURITY LOGIC
-    // ------------------------------------------
-    let enteredPin = "";
-
+    // PIN Handling
     function updatePinDots() {
       for (let i = 1; i <= 4; i++) {
         const dot = document.getElementById(`dot${i}`);
-        if (i <= enteredPin.length) {
-          dot.classList.add('filled');
-        } else {
-          dot.classList.remove('filled');
-        }
+        if (i <= enteredPin.length) dot.classList.add('filled');
+        else dot.classList.remove('filled');
       }
     }
 
@@ -438,9 +366,7 @@
       if (enteredPin.length < 4) {
         enteredPin += num;
         updatePinDots();
-        if (enteredPin.length === 4) {
-          setTimeout(verifyPin, 100);
-        }
+        if (enteredPin.length === 4) setTimeout(verifyPin, 100);
       }
     }
 
@@ -448,42 +374,26 @@
       if (enteredPin.length > 0) {
         enteredPin = enteredPin.slice(0, -1);
         updatePinDots();
-        hidePinError();
+        document.getElementById('pinErrorMsg').classList.add('opacity-0');
       }
     }
 
     function clearPin() {
       enteredPin = "";
       updatePinDots();
-      hidePinError();
-    }
-
-    function hidePinError() {
-      const err = document.getElementById('pinErrorMsg');
-      err.classList.add('opacity-0');
-    }
-
-    function showPinError() {
-      const err = document.getElementById('pinErrorMsg');
-      err.classList.remove('opacity-0');
-      // Shake animation
-      const container = document.querySelector('#pinLockScreen .pin-dot').parentElement;
-      container.classList.add('animate-bounce');
-      setTimeout(() => {
-        container.classList.remove('animate-bounce');
-        clearPin();
-      }, 700);
+      document.getElementById('pinErrorMsg').classList.add('opacity-0');
     }
 
     function verifyPin() {
-      const correctPin = appSettings.admin_pin || "1990";
-      if (enteredPin === correctPin) {
-        // Unlock Dashboard
+      const pin = appSettings.admin_pin || "1990";
+      if (enteredPin === pin) {
         document.getElementById('pinLockScreen').classList.add('hidden');
         document.getElementById('adminDashboard').classList.remove('hidden');
-        populateDashboardUI();
+        populateUI();
       } else {
-        showPinError();
+        const err = document.getElementById('pinErrorMsg');
+        err.classList.remove('opacity-0');
+        clearPin();
       }
     }
 
@@ -494,220 +404,64 @@
       document.getElementById('pinLockScreen').classList.remove('hidden');
     }
 
-    // Physical Keyboard support for PIN entry
-    window.addEventListener('keydown', (e) => {
-      if (!document.getElementById('pinLockScreen').classList.contains('hidden')) {
-        if (/^[0-9]$/.test(e.key)) {
-          handleKeyClick(e.key);
-        } else if (e.key === 'Backspace') {
-          backspacePin();
-        } else if (e.key === 'Escape') {
-          clearPin();
-        }
-      }
-    });
+    function populateUI() {
+      const p = appSettings.pricing_config || {};
+      document.getElementById('cfgMinFare').value = p.minFare || 100000;
+      document.getElementById('cfgTier1Rate').value = p.tier1Rate || 12000;
+      document.getElementById('cfgTier2Rate').value = p.tier2Rate || 9500;
+      document.getElementById('cfgTier3Rate').value = p.tier3Rate || 8500;
+      document.getElementById('cfgRoundDiscount').value = p.roundTripDiscount || 0.4;
 
-    // ------------------------------------------
-    // DASHBOARD UI POPULATION & BINDING
-    // ------------------------------------------
-    function populateDashboardUI() {
-      // Holiday mode
-      const holiday = appSettings.holiday_mode;
-      const holidayToggle = document.getElementById('holidayToggle');
-      holidayToggle.checked = !!holiday.is_active;
-      document.getElementById('holidaySurgeType').value = holiday.surge_type || 'percent';
-      document.getElementById('holidaySurgeValue').value = holiday.surge_value || 20;
-      document.getElementById('holidayNoticeText').value = holiday.notice_text || 'Đã áp dụng phụ thu dịp Lễ/Tết';
-
-      // Banner notice
-      document.getElementById('emptyCarNoticeInput').value = appSettings.banner_notice || '';
-      document.getElementById('bannerActiveToggle').checked = appSettings.banner_active !== false;
-
-      // General settings
-      document.getElementById('cfgDriverName').value = appSettings.driver_name || 'Lê Tuấn';
-      document.getElementById('cfgDriverPhone').value = appSettings.driver_phone || '0912345678';
-      document.getElementById('cfgAdminPin').value = appSettings.admin_pin || '1990';
+      document.getElementById('cfgDriverName').value = appSettings.driver_name || 'Hồ Nghĩa Thắng';
+      document.getElementById('cfgDriverPhone').value = appSettings.driver_phone || '0337545188';
       document.getElementById('cfgCarModel').value = appSettings.car_model || 'Mazda CX-5 Luxury 2024';
-
-      // Render Route List
-      renderRouteList();
+      document.getElementById('cfgAdminPin').value = appSettings.admin_pin || '1990';
       lucide.createIcons();
     }
 
-    // Render Routes Cards
-    function renderRouteList() {
-      const container = document.getElementById('routeListContainer');
-      container.innerHTML = '';
+    function saveKmPricing() {
+      if (!appSettings.pricing_config) appSettings.pricing_config = {};
+      appSettings.pricing_config.minFare = parseInt(document.getElementById('cfgMinFare').value, 10) || 100000;
+      appSettings.pricing_config.tier1Rate = parseInt(document.getElementById('cfgTier1Rate').value, 10) || 12000;
+      appSettings.pricing_config.tier2Rate = parseInt(document.getElementById('cfgTier2Rate').value, 10) || 9500;
+      appSettings.pricing_config.tier3Rate = parseInt(document.getElementById('cfgTier3Rate').value, 10) || 8500;
+      appSettings.pricing_config.roundTripDiscount = parseFloat(document.getElementById('cfgRoundDiscount').value) || 0.4;
 
-      appSettings.routes.forEach((route, index) => {
-        const card = document.createElement('div');
-        card.className = "p-3 rounded-xl bg-panel border border-white/10 space-y-2.5";
-        
-        card.innerHTML = `
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full ${route.is_active ? 'bg-laser shadow-laser-glow' : 'bg-zinc-600'}"></span>
-              <h3 class="text-xs font-bold text-white">${route.name}</h3>
-            </div>
-            <label class="relative inline-flex items-center cursor-pointer">
-              <input type="checkbox" ${route.is_active ? 'checked' : ''} onchange="toggleRouteActive(${index}, this.checked)" class="sr-only peer">
-              <div class="w-8 h-4 bg-recessed peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[1px] after:left-[1px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3.5 after:w-3.5 after:transition-all peer-checked:bg-laser"></div>
-            </label>
-          </div>
-
-          <div class="grid grid-cols-2 gap-2">
-            <div>
-              <label class="block text-[10px] text-zinc-400 mb-0.5">Giá Bao Xe (VNĐ)</label>
-              <input 
-                type="number" 
-                step="10000"
-                id="route_bao_${index}" 
-                value="${route.price_bao_xe}" 
-                class="w-full h-8 px-2 rounded-lg bg-canvas border border-gold/30 text-gold font-mono font-bold text-xs outline-none focus:border-gold"
-              />
-            </div>
-            <div>
-              <label class="block text-[10px] text-zinc-400 mb-0.5">Giá Ghép (VNĐ)</label>
-              <input 
-                type="number" 
-                step="10000"
-                id="route_ghep_${index}" 
-                value="${route.price_ghep}" 
-                ${!route.allow_ghep ? 'disabled title="Tuyến không áp dụng ghép"' : ''}
-                class="w-full h-8 px-2 rounded-lg bg-canvas border border-white/10 ${!route.allow_ghep ? 'opacity-40 cursor-not-allowed text-zinc-600' : 'text-zinc-200'} font-mono font-bold text-xs outline-none focus:border-laser"
-              />
-            </div>
-          </div>
-        `;
-
-        container.appendChild(card);
-      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(appSettings));
+      showToast('Đã lưu cấu hình bảng giá Km!');
     }
 
-    // Toggle Route Active
-    function toggleRouteActive(index, isActive) {
-      appSettings.routes[index].is_active = isActive;
-      saveSettingsToStorage(appSettings);
-      renderRouteList();
-      showToast(`Đã ${isActive ? 'bật' : 'tắt'} tuyến: ${appSettings.routes[index].name}`);
-    }
-
-    // Save All Routes Price
-    function saveAllRoutes() {
-      appSettings.routes.forEach((route, index) => {
-        const baoVal = parseInt(document.getElementById(`route_bao_${index}`).value, 10);
-        const ghepVal = parseInt(document.getElementById(`route_ghep_${index}`).value, 10);
-        if (!isNaN(baoVal)) route.price_bao_xe = baoVal;
-        if (!isNaN(ghepVal)) route.price_ghep = ghepVal;
-      });
-
-      saveSettingsToStorage(appSettings);
-      showToast('Đã lưu bảng giá tất cả tuyến đường!');
-    }
-
-    // Toggle Holiday Mode (1-Touch)
-    function toggleHolidayMode(isActive) {
-      appSettings.holiday_mode.is_active = isActive;
-      updateHolidaySettings();
-      showToast(isActive ? 'ĐÃ BẬT chế độ phụ thu Lễ/Tết (+20%)' : 'ĐÃ TẮT phụ thu Lễ/Tết');
-    }
-
-    function updateHolidaySettings() {
-      appSettings.holiday_mode.surge_type = document.getElementById('holidaySurgeType').value;
-      appSettings.holiday_mode.surge_value = parseFloat(document.getElementById('holidaySurgeValue').value) || 20;
-      appSettings.holiday_mode.notice_text = document.getElementById('holidayNoticeText').value;
-      saveSettingsToStorage(appSettings);
-    }
-
-    // Toggle Banner Notice
-    function toggleBannerNotice(isActive) {
-      appSettings.banner_active = isActive;
-      saveSettingsToStorage(appSettings);
-      showToast(isActive ? 'Đã bật hiển thị banner xe rỗng' : 'Đã ẩn banner xe rỗng');
-    }
-
-    // Save Empty Seat Flash Notice
-    function saveBannerNotice() {
-      const notice = document.getElementById('emptyCarNoticeInput').value.trim();
-      appSettings.banner_notice = notice;
-      saveSettingsToStorage(appSettings);
-      showToast('Đã cập nhật banner xe rỗng thành công!');
-    }
-
-    // Save General Settings
-    function saveGeneralSettings() {
-      const driverName = document.getElementById('cfgDriverName').value.trim();
-      const driverPhone = document.getElementById('cfgDriverPhone').value.trim();
+    function saveDriverSettings() {
       const pin = document.getElementById('cfgAdminPin').value.trim();
-      const carModel = document.getElementById('cfgCarModel').value.trim();
-
       if (pin.length !== 4) {
-        alert('Mã PIN phải có đúng 4 chữ số!');
+        alert('Mã PIN phải gồm đúng 4 chữ số!');
         return;
       }
-
-      appSettings.driver_name = driverName;
-      appSettings.driver_phone = driverPhone;
-      appSettings.zalo_link = `https://zalo.me/${driverPhone}`;
+      appSettings.driver_name = document.getElementById('cfgDriverName').value.trim();
+      appSettings.driver_phone = document.getElementById('cfgDriverPhone').value.trim();
+      appSettings.car_model = document.getElementById('cfgCarModel').value.trim();
       appSettings.admin_pin = pin;
-      appSettings.car_model = carModel;
 
-      saveSettingsToStorage(appSettings);
-      showToast('Đã cập nhật thông tin tài xế & PIN mới!');
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(appSettings));
+      showToast('Đã lưu thông tin bác tài!');
     }
 
-    // ------------------------------------------
-    // FIREBASE FIRESTORE SYNC HOOK (Cloud Sync)
-    // ------------------------------------------
-    /**
-     * Firebase Firestore Integration Architecture:
-     * Khi kết nối Firebase, điền FirebaseConfig vào đây và gọi sync trực tiếp.
-     */
-    async function syncToFirestoreDemo() {
-      showToast('Đang kết nối Firestore...');
-      // Kiến trúc sẵn sàng kết nối Cloud Firestore
-      try {
-        /*
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-        
-        const firebaseConfig = { ... };
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        await setDoc(doc(db, "configs", "app_settings"), appSettings);
-        */
-        setTimeout(() => {
-          showToast('Đã đồng bộ thành công với Cloud Storage!');
-        }, 800);
-      } catch (err) {
-        console.error('Firestore sync error:', err);
-        showToast('Lỗi đồng bộ Cloud, đã lưu an toàn tại Local!');
-      }
-    }
-
-    // Toast Helper
-    let toastTimeout = null;
     function showToast(msg) {
       const toast = document.getElementById('toastNotification');
-      const text = document.getElementById('toastMessage');
-      text.textContent = msg;
-
+      document.getElementById('toastMessage').textContent = msg;
       toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-3');
       toast.classList.add('opacity-100', 'translate-y-0');
-
-      if (toastTimeout) clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => {
+      setTimeout(() => {
         toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-3');
         toast.classList.remove('opacity-100', 'translate-y-0');
       }, 2500);
     }
 
-    // Initialize icons
     document.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
     });
   </script>
 
 </body>
-</html>
 
+</html>
